@@ -76,6 +76,7 @@ public class FoodDeliveryTests
             .Select(order => order.Client)
             .Distinct()
             .OrderBy(client => client.FullName)
+            .Select(client => client.FullName)
             .ToList();
 
         Assert.Equal(expected, result);
