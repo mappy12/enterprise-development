@@ -1,8 +1,14 @@
 ﻿using FoodDelivery.Domain.Entities;
 namespace FoodDelivery.Domain.Data;
 
+/// <summary>
+/// Тестовые данные службы доставки еды.
+/// </summary>
 public class FoodDeliveryData
 {
+    /// <summary>
+    /// Список категорий блюд
+    /// </summary>
     public static List<DishCategory> Categories { get; } =
     [
         new DishCategory { Id = 1, Name = "Burgers" },
@@ -17,6 +23,9 @@ public class FoodDeliveryData
         new DishCategory { Id = 10, Name = "Grill" }
     ];
 
+    /// <summary>
+    /// Список ресторанов службы доставки
+    /// </summary>
     public static List<Restaurant> Restaurants { get; } =
     [
         new Restaurant
@@ -110,6 +119,10 @@ public class FoodDeliveryData
         }
     ];
 
+
+    /// <summary>
+    /// Список клиентов службы доставки
+    /// </summary>
     public static List<Client> Clients { get; } =
     [
         new Client
@@ -193,6 +206,9 @@ public class FoodDeliveryData
         }
     ];
 
+    /// <summary>
+    /// Список блюд, доступных в службе доставки
+    /// </summary>
     public static List<Dish> Dishes { get; } =
     [
         new Dish
@@ -286,6 +302,10 @@ public class FoodDeliveryData
         }
     ];
 
+    /// <summary>
+    /// Список заказов с информацией о клиентах, ресторанах, блюдах,
+    /// времени заказа, времени доставки и итоговой стоимости
+    /// </summary>
     public static List<Order> Orders { get; } =
     [
         new Order

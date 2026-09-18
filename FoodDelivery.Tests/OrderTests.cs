@@ -2,40 +2,14 @@
 
 namespace FoodDelivery.Tests;
 
-public class FoodDeliveryTests
+/// <summary>
+/// Тесты для операций с заказами службы доставки еды
+/// </summary>
+public class OrderTests
 {
-    [Fact]
-    public void GetTopFiveRestaurantsByOrderCount()
-    {
-        var orders = FoodDeliveryData.Orders;
-
-        var result = orders
-            .GroupBy(order => order.Restaurant)
-            .Select(group => new
-            {
-                Restaurant = group.Key,
-                OrderCount = group.Count()
-            })
-            .OrderByDescending(x => x.OrderCount)
-            .ThenBy(x => x.Restaurant.Id)
-            .Take(5)
-            .ToList();
-
-        Assert.Equal(5, result.Count);
-
-        Assert.Equal("Burger House", result[0].Restaurant.Name);
-        Assert.Equal(6, result[0].OrderCount);
-
-        Assert.Equal("Pizza Time", result[1].Restaurant.Name);
-        Assert.Equal(4, result[1].OrderCount);
-
-        Assert.Equal("Sushi World", result[2].Restaurant.Name);
-        Assert.Equal(3, result[2].OrderCount);
-
-        Assert.Equal(1, result[3].OrderCount);
-        Assert.Equal(1, result[4].OrderCount);
-    }
-
+    /// <summary>
+    /// Вывести список заказов с минимальным временем доставки.
+    /// </summary>
     [Fact]
     public void GetOrdersByMinDeliveryTime()
     {
@@ -54,33 +28,11 @@ public class FoodDeliveryTests
         Assert.Equal([7, 12, 19], result);
     }
 
-    [Fact]
-    public void GetClientsByRestaurant()
-    {
-        var expected = new List<string>
-        {
-            "Alexey Ivanov",
-            "Anna Petrova",
-            "Dmitry Smirnov",
-            "Ivan Popov",
-            "Nikolay Fedorov",
-            "Pavel Volkov"
-        };
 
-        var restaurant = FoodDeliveryData.Restaurants
-            .First(r => r.Name == "Burger House");
-
-        var result = FoodDeliveryData.Orders
-            .Where(order => order.Restaurant == restaurant)
-            .Select(order => order.Client)
-            .Distinct()
-            .OrderBy(client => client.FullName)
-            .Select(client => client.FullName)
-            .ToList();
-
-        Assert.Equal(expected, result);
-    }
-
+    /// <summary>
+    /// Вывести сводную информацию о заказах (число заказов, средняя сумма заказа,
+    /// общая сумма заказа) по каждой категории блюд за указанный период. 
+    /// </summary>
     [Fact]
     public void GetCategorySalesStats()
     {
@@ -127,22 +79,5 @@ public class FoodDeliveryTests
             .ToArray();
 
         Assert.Equal(expected, actual);
-    }
-
-    [Fact]
-    public void GetClientWithMaxMoneySpending()
-    {
-        var result = FoodDeliveryData.Orders
-            .GroupBy(order => order.Client)
-            .Select(group => new
-            {
-                Client = group.Key,
-                TotalSpent = group.Sum(order => order.TotalAmount)
-            })
-            .OrderByDescending(x => x.TotalSpent)
-            .First();
-
-        Assert.Equal("Ivan Popov", result.Client.FullName);
-        Assert.Equal(1950m, result.TotalSpent);
     }
 }
