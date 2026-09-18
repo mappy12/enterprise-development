@@ -54,4 +54,30 @@ public class FoodDeliveryTests
         Assert.Equal(20, minDeliveryTime.TotalMinutes);
         Assert.Equal([7, 12, 19], result);
     }
+
+    [Fact]
+    public void GetClientsByRestaurant()
+    {
+        var expected = new List<string>
+        {
+            "Alexey Ivanov",
+            "Anna Petrova",
+            "Dmitry Smirnov",
+            "Ivan Popov",
+            "Nikolay Fedorov",
+            "Pavel Volkov"
+        };
+
+        var restaurant = FoodDeliveryData.Restaurants
+            .First(r => r.Name == "Burger House");
+
+        var result = FoodDeliveryData.Orders
+            .Where(order => order.Restaurant == restaurant)
+            .Select(order => order.Client)
+            .Distinct()
+            .OrderBy(client => client.FullName)
+            .ToList();
+
+        Assert.Equal(expected, result);
+    }
 }
