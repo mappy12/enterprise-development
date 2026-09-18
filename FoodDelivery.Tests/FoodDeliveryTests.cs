@@ -34,7 +34,6 @@ public class FoodDeliveryTests
 
         Assert.Equal(1, result[3].OrderCount);
         Assert.Equal(1, result[4].OrderCount);
-
     }
 
     [Fact]
@@ -128,5 +127,22 @@ public class FoodDeliveryTests
             .ToArray();
 
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void GetClientWithMaxMoneySpending()
+    {
+        var result = FoodDeliveryData.Orders
+            .GroupBy(order => order.Client)
+            .Select(group => new
+            {
+                Client = group.Key,
+                TotalSpent = group.Sum(order => order.TotalAmount)
+            })
+            .OrderByDescending(x => x.TotalSpent)
+            .First();
+
+        Assert.Equal("Ivan Popov", result.Client.FullName);
+        Assert.Equal(1950m, result.TotalSpent);
     }
 }
