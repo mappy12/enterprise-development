@@ -81,4 +81,52 @@ public class FoodDeliveryTests
 
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void GetCategorySalesStats()
+    {
+        var expected = new[]
+        {
+            new { CategoryId = 1, OrderCount = 3, AverageOrderAmount = 683.33m, TotalOrderAmount = 2050m },
+            new { CategoryId = 2, OrderCount = 3, AverageOrderAmount = 950.00m, TotalOrderAmount = 2850m },
+            new { CategoryId = 8, OrderCount = 2, AverageOrderAmount = 700.00m, TotalOrderAmount = 1400m }
+        };
+
+        var startDate = new DateTime(2026, 9, 1);
+        var endDate = new DateTime(2026, 9, 7);
+
+        var result = FoodDeliveryData.Categories
+            .Select(category => new
+            {
+                Category = category,
+                Orders = FoodDeliveryData.Orders
+                    .Where(order =>
+                        order.OrderTime >= startDate &&
+                        order.OrderTime < endDate &&
+                        order.Dishes.Any(dish => dish.Category == category))
+                    .ToList()
+            })
+            .Where(x => x.Orders.Count > 0)
+            .Select(x => new
+            {
+                Category = x.Category,
+                OrderCount = x.Orders.Count,
+                AverageOrderAmount = x.Orders.Average(order => order.TotalAmount),
+                TotalOrderAmount = x.Orders.Sum(order => order.TotalAmount)
+            })
+            .OrderBy(x => x.Category.Id)
+            .ToList();
+
+        var actual = result
+            .Select(x => new
+            {
+                CategoryId = x.Category.Id,
+                x.OrderCount,
+                AverageOrderAmount = Math.Round(x.AverageOrderAmount, 2),
+                x.TotalOrderAmount
+            })
+            .ToArray();
+
+        Assert.Equal(expected, actual);
+    }
 }
