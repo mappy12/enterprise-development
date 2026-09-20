@@ -32,7 +32,7 @@ public class RoomTests
             .OrderBy(roomNumber => roomNumber)
             .ToList();
 
-        Assert.Equal (expected, result);
+        Assert.Equal(expected, result);
     }
 
     /// <summary>
