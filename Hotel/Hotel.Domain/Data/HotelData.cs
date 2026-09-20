@@ -11,12 +11,12 @@ public static class HotelData
         new RoomType { Id = 2, Category = RoomCategory.Economy, Area = 22, BedCount = 2, HasBathroom = true, PricePerDay = 3000 },
         new RoomType { Id = 3, Category = RoomCategory.Standard, Area = 25, BedCount = 2, HasBathroom = true, PricePerDay = 4000 },
         new RoomType { Id = 4, Category = RoomCategory.Standard, Area = 28, BedCount = 2, HasBathroom = true, PricePerDay = 4500 },
-        new RoomType { Id = 5, Category = RoomCategory.Comfort, Area = 32, BedCount = 2, HasBathroom = true, PricePerDay = 5500 },
-        new RoomType { Id = 6, Category = RoomCategory.Comfort, Area = 38, BedCount = 3, HasBathroom = true, PricePerDay = 6500 },
-        new RoomType { Id = 7, Category = RoomCategory.Luxury, Area = 45, BedCount = 2, HasBathroom = true, PricePerDay = 8000 },
-        new RoomType { Id = 8, Category = RoomCategory.Luxury, Area = 55, BedCount = 2, HasBathroom = true, PricePerDay = 10000 },
-        new RoomType { Id = 9, Category = RoomCategory.Standard, Area = 30, BedCount = 3, HasBathroom = true, PricePerDay = 5000 },
-        new RoomType { Id = 10, Category = RoomCategory.Comfort, Area = 40, BedCount = 4, HasBathroom = true, PricePerDay = 7000 }
+        new RoomType { Id = 5, Category = RoomCategory.Standard, Area = 30, BedCount = 3, HasBathroom = true, PricePerDay = 5000 },
+        new RoomType { Id = 6, Category = RoomCategory.Comfort, Area = 32, BedCount = 2, HasBathroom = true, PricePerDay = 5500 },
+        new RoomType { Id = 7, Category = RoomCategory.Comfort, Area = 38, BedCount = 3, HasBathroom = true, PricePerDay = 6500 },
+        new RoomType { Id = 8, Category = RoomCategory.Comfort, Area = 40, BedCount = 4, HasBathroom = true, PricePerDay = 7000 },
+        new RoomType { Id = 9, Category = RoomCategory.Luxury, Area = 45, BedCount = 2, HasBathroom = true, PricePerDay = 8000 },
+        new RoomType { Id = 10, Category = RoomCategory.Luxury, Area = 55, BedCount = 2, HasBathroom = true, PricePerDay = 10000 }
     ];
 
     public static List<Room> Rooms { get; } =
@@ -38,17 +38,17 @@ public static class HotelData
         new Client { Id = 1, PassportNumber = "AA123456", FullName = "Alexey Ivanov", BirthDate = new DateTime(1990, 5, 12), Citizenship = "Russia" },
         new Client { Id = 2, PassportNumber = "BB234567", FullName = "Anna Petrova", BirthDate = new DateTime(1988, 3, 20), Citizenship = "Russia" },
         new Client { Id = 3, PassportNumber = "CC345678", FullName = "Dmitry Smirnov", BirthDate = new DateTime(1995, 7, 8), Citizenship = "Russia" },
-        new Client { Id = 13, PassportNumber = "XO1234567", FullName = "Yuki Tanaka", BirthDate = new DateTime(1997, 11, 5), Citizenship = "Japan" },
-        new Client { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
         new Client { Id = 4, PassportNumber = "DD456789", FullName = "Elena Kuznetsova", BirthDate = new DateTime(1992, 11, 15), Citizenship = "Russia" },
         new Client { Id = 5, PassportNumber = "EE567890", FullName = "Ivan Popov", BirthDate = new DateTime(1985, 1, 25), Citizenship = "Russia" },
-        new Client { Id = 11, PassportNumber = "AB987654", FullName = "John Smith", BirthDate = new DateTime(1989, 2, 14), Citizenship = "USA" },
         new Client { Id = 6, PassportNumber = "FF678901", FullName = "Maria Sokolova", BirthDate = new DateTime(1998, 6, 10), Citizenship = "Russia" },
         new Client { Id = 7, PassportNumber = "GG789012", FullName = "Nikolay Fedorov", BirthDate = new DateTime(1987, 9, 3), Citizenship = "Russia" },
         new Client { Id = 8, PassportNumber = "HH890123", FullName = "Olga Morozova", BirthDate = new DateTime(1993, 12, 18), Citizenship = "Russia" },
-        new Client { Id = 12, PassportNumber = "CD876543", FullName = "Hans Mueller", BirthDate = new DateTime(1994, 10, 30), Citizenship = "Germany" },
         new Client { Id = 9, PassportNumber = "II901234", FullName = "Pavel Volkov", BirthDate = new DateTime(1991, 4, 7), Citizenship = "Russia" },
         new Client { Id = 10, PassportNumber = "JJ012345", FullName = "Sofia Orlova", BirthDate = new DateTime(1996, 8, 22), Citizenship = "Russia" },
+        new Client { Id = 11, PassportNumber = "AB987654", FullName = "John Smith", BirthDate = new DateTime(1989, 2, 14), Citizenship = "USA" },
+        new Client { Id = 12, PassportNumber = "CD876543", FullName = "Hans Mueller", BirthDate = new DateTime(1994, 10, 30), Citizenship = "Germany" },
+        new Client { Id = 13, PassportNumber = "XO1234567", FullName = "Yuki Tanaka", BirthDate = new DateTime(1997, 11, 5), Citizenship = "Japan" },
+        new Client { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
     ];
 
     public static List<Booking> Bookings { get; } =
