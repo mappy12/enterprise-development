@@ -1,0 +1,1 @@
+﻿using Hotel.Domain.Data;

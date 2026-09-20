@@ -1,7 +1,7 @@
 ﻿using Hotel.Domain.Entities;
 using Hotel.Domain.Shared;
 
-namespace Hotel.Domain.Entities.Data;
+namespace Hotel.Domain.Data;
 
 public static class HotelData
 {
