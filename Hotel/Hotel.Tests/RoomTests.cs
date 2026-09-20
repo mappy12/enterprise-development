@@ -1,4 +1,6 @@
 ﻿using Hotel.Domain.Data;
+using Hotel.Domain.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Hotel.Tests;
 
@@ -27,5 +29,28 @@ public class RoomTests
             .ToList();
 
         Assert.Equal (expected, result);
+    }
+
+    [Fact]
+    public void GetTopFiveMostBookedRooms()
+    {
+        var expected = new List<int>
+        {
+            101,
+            102,
+            201,
+            202,
+            301
+        };
+
+        var result = HotelData.Bookings
+            .GroupBy(booking => booking.Room)
+            .OrderByDescending(group => group.Count())
+            .ThenBy(group => group.Key.RoomNumber)
+            .Take(5)
+            .Select(group => group.Key.RoomNumber)
+            .ToList();
+
+        Assert.Equal(expected, result);
     }
 }
