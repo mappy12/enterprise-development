@@ -1,6 +1,4 @@
-﻿using Hotel.Domain.Shared;
-
-namespace Hotel.Domain.Entities;
+﻿namespace Hotel.Domain.Entities;
 
 public class  Room
 {

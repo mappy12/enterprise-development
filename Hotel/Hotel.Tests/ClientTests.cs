@@ -28,4 +28,34 @@ public class ClientTests
         Assert.Equal(expected, result);
     }
 
+    [Fact]
+    public void GetTopFiveClientsByTotalStayCost()
+    {
+        var expected = new List<string>
+        {
+            "Pavel Volkov",
+            "Sofia Orlova",
+            "Nikolay Fedorov",
+            "Ivan Popov",
+            "Maria Sokolova"
+        };
+
+        var result = HotelData.Bookings
+            .GroupBy(booking => booking.Client)
+            .Select(group => new
+            {
+                Client = group.Key,
+                TotalCost = group.Sum(booking =>
+                    booking.DaysCount * booking.Room.RoomType.PricePerDay)
+            })
+            .OrderByDescending(item => item.TotalCost)
+            .ThenBy(item => item.Client.FullName)
+            .Take(5)
+            .Select(item => item.Client.FullName)
+            .ToList();
+
+        Assert.Equal(expected, result);
+    }
+    
+    
 }

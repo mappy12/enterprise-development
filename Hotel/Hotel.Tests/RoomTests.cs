@@ -1,6 +1,4 @@
 ﻿using Hotel.Domain.Data;
-using Hotel.Domain.Entities;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Hotel.Tests;
 
