@@ -3,8 +3,15 @@ using Hotel.Domain.Shared;
 
 namespace Hotel.Domain.Data;
 
+/// <summary>
+/// Тестовые данные гостиницы
+/// </summary>
 public static class HotelData
 {
+
+    /// <summary>
+    /// Список типов номеров гостиницы
+    /// </summary>
     public static List<RoomType> RoomTypes { get; } =
     [
         new RoomType { Id = 1, Category = RoomCategory.Economy, Area = 18, BedCount = 1, HasBathroom = true, PricePerDay = 2500 },
@@ -19,6 +26,9 @@ public static class HotelData
         new RoomType { Id = 10, Category = RoomCategory.Luxury, Area = 55, BedCount = 2, HasBathroom = true, PricePerDay = 10000 }
     ];
 
+    /// <summary>
+    /// Список номеров гостиницы
+    /// </summary>
     public static List<Room> Rooms { get; } =
     [
         new Room { Id = 1, RoomNumber = 101, Floor = 1, HasBalcony = false, RoomType = RoomTypes[0] },
@@ -33,6 +43,9 @@ public static class HotelData
         new Room { Id = 10, RoomNumber = 502, Floor = 5, HasBalcony = true, RoomType = RoomTypes[9] }
     ];
 
+    /// <summary>
+    /// Список клиентов гостиницы
+    /// </summary>
     public static List<Client> Clients { get; } =
     [
         new Client { Id = 1, PassportNumber = "AA123456", FullName = "Alexey Ivanov", BirthDate = new DateTime(1990, 5, 12), Citizenship = "Russia" },
@@ -51,6 +64,9 @@ public static class HotelData
         new Client { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
     ];
 
+    /// <summary>
+    /// Список бронирований номеров гостиницы
+    /// </summary>
     public static List<Booking> Bookings { get; } =
     [
         new Booking { Id = 1, Client = Clients[0], Room = Rooms[0], CheckInDate = new DateTime(2026, 9, 1), DaysCount = 3 },

@@ -2,8 +2,14 @@
 
 namespace Hotel.Tests;
 
+/// <summary>
+/// Тесты для операций с номерами гостиницы
+/// </summary>
 public class RoomTests
 {
+    /// <summary>
+    /// Проверяет получение номеров, которые заняты на указанную дату
+    /// </summary>
     [Fact]
     public void GetBookedRooms()
     {
@@ -29,6 +35,9 @@ public class RoomTests
         Assert.Equal (expected, result);
     }
 
+    /// <summary>
+    /// Проверяет получение пяти номеров, которые бронировались чаще всего
+    /// </summary>
     [Fact]
     public void GetTopFiveMostBookedRooms()
     {
@@ -52,6 +61,9 @@ public class RoomTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Проверяет количество бронирований для каждого номера
+    /// </summary>
     [Fact]
     public void GetBookingCountForEachRoom()
     {
