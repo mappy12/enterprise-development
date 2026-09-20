@@ -1,9 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Hotel.Domain.Entities;
 
-namespace Hotel.Domain.Entities;
-
-internal class Booking
+public class Booking
 {
+    public int Id { get; set; }
+
+    public Client Client { get; set; } = null!;
+
+    public Room Room { get; set; } = null!;
+
+    public DateTime CheckInDate { get; set; }
+
+    public int DaysCount { get; set; }
 }

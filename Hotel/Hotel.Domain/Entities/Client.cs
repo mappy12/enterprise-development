@@ -1,9 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Hotel.Domain.Entities;
 
-namespace Hotel.Domain.Entities;
-
-internal class Client
+public class Client
 {
+    public int Id { get; set; }
+
+    public string PassportNumber { get; set; } = string.Empty;
+
+    public string FullName { get; set; } = string.Empty;
+
+    public DateTime BirthDate { get; set; }
+
+    public string Citizenship { get; set; } = string.Empty;
 }
