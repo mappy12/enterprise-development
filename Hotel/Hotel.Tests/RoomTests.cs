@@ -53,4 +53,30 @@ public class RoomTests
 
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void GetBookingCountForEachRoom()
+    {
+        var expected = new Dictionary<int, int>
+        {
+            [101] = 3,
+            [102] = 2,
+            [201] = 2,
+            [202] = 2,
+            [301] = 2,
+            [302] = 2,
+            [401] = 2,
+            [402] = 2,
+            [501] = 2,
+            [502] = 1,
+        };
+
+        var result = HotelData.Bookings
+            .GroupBy(booking => booking.Room)
+            .ToDictionary(
+                group => group.Key.RoomNumber,
+                group => group.Count());
+
+        Assert.Equal(expected, result);
+    }
 }
