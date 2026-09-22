@@ -46,22 +46,22 @@ public static class HotelData
     /// <summary>
     /// Список клиентов гостиницы
     /// </summary>
-    public static List<Client> Clients { get; } =
+    public static List<HotelClient> Clients { get; } =
     [
-        new Client { Id = 1, PassportNumber = "AA123456", FullName = "Alexey Ivanov", BirthDate = new DateTime(1990, 5, 12), Citizenship = "Russia" },
-        new Client { Id = 2, PassportNumber = "BB234567", FullName = "Anna Petrova", BirthDate = new DateTime(1988, 3, 20), Citizenship = "Russia" },
-        new Client { Id = 3, PassportNumber = "CC345678", FullName = "Dmitry Smirnov", BirthDate = new DateTime(1995, 7, 8), Citizenship = "Russia" },
-        new Client { Id = 4, PassportNumber = "DD456789", FullName = "Elena Kuznetsova", BirthDate = new DateTime(1992, 11, 15), Citizenship = "Russia" },
-        new Client { Id = 5, PassportNumber = "EE567890", FullName = "Ivan Popov", BirthDate = new DateTime(1985, 1, 25), Citizenship = "Russia" },
-        new Client { Id = 6, PassportNumber = "FF678901", FullName = "Maria Sokolova", BirthDate = new DateTime(1998, 6, 10), Citizenship = "Russia" },
-        new Client { Id = 7, PassportNumber = "GG789012", FullName = "Nikolay Fedorov", BirthDate = new DateTime(1987, 9, 3), Citizenship = "Russia" },
-        new Client { Id = 8, PassportNumber = "HH890123", FullName = "Olga Morozova", BirthDate = new DateTime(1993, 12, 18), Citizenship = "Russia" },
-        new Client { Id = 9, PassportNumber = "II901234", FullName = "Pavel Volkov", BirthDate = new DateTime(1991, 4, 7), Citizenship = "Russia" },
-        new Client { Id = 10, PassportNumber = "JJ012345", FullName = "Sofia Orlova", BirthDate = new DateTime(1996, 8, 22), Citizenship = "Russia" },
-        new Client { Id = 11, PassportNumber = "AB987654", FullName = "John Smith", BirthDate = new DateTime(1989, 2, 14), Citizenship = "USA" },
-        new Client { Id = 12, PassportNumber = "CD876543", FullName = "Hans Mueller", BirthDate = new DateTime(1994, 10, 30), Citizenship = "Germany" },
-        new Client { Id = 13, PassportNumber = "XO1234567", FullName = "Yuki Tanaka", BirthDate = new DateTime(1997, 11, 5), Citizenship = "Japan" },
-        new Client { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
+        new HotelClient { Id = 1, PassportNumber = "AA123456", FullName = "Alexey Ivanov", BirthDate = new DateTime(1990, 5, 12), Citizenship = "Russia" },
+        new HotelClient { Id = 2, PassportNumber = "BB234567", FullName = "Anna Petrova", BirthDate = new DateTime(1988, 3, 20), Citizenship = "Russia" },
+        new HotelClient { Id = 3, PassportNumber = "CC345678", FullName = "Dmitry Smirnov", BirthDate = new DateTime(1995, 7, 8), Citizenship = "Russia" },
+        new HotelClient { Id = 4, PassportNumber = "DD456789", FullName = "Elena Kuznetsova", BirthDate = new DateTime(1992, 11, 15), Citizenship = "Russia" },
+        new HotelClient { Id = 5, PassportNumber = "EE567890", FullName = "Ivan Popov", BirthDate = new DateTime(1985, 1, 25), Citizenship = "Russia" },
+        new HotelClient { Id = 6, PassportNumber = "FF678901", FullName = "Maria Sokolova", BirthDate = new DateTime(1998, 6, 10), Citizenship = "Russia" },
+        new HotelClient { Id = 7, PassportNumber = "GG789012", FullName = "Nikolay Fedorov", BirthDate = new DateTime(1987, 9, 3), Citizenship = "Russia" },
+        new HotelClient { Id = 8, PassportNumber = "HH890123", FullName = "Olga Morozova", BirthDate = new DateTime(1993, 12, 18), Citizenship = "Russia" },
+        new HotelClient { Id = 9, PassportNumber = "II901234", FullName = "Pavel Volkov", BirthDate = new DateTime(1991, 4, 7), Citizenship = "Russia" },
+        new HotelClient { Id = 10, PassportNumber = "JJ012345", FullName = "Sofia Orlova", BirthDate = new DateTime(1996, 8, 22), Citizenship = "Russia" },
+        new HotelClient { Id = 11, PassportNumber = "AB987654", FullName = "John Smith", BirthDate = new DateTime(1989, 2, 14), Citizenship = "USA" },
+        new HotelClient { Id = 12, PassportNumber = "CD876543", FullName = "Hans Mueller", BirthDate = new DateTime(1994, 10, 30), Citizenship = "Germany" },
+        new HotelClient { Id = 13, PassportNumber = "XO1234567", FullName = "Yuki Tanaka", BirthDate = new DateTime(1997, 11, 5), Citizenship = "Japan" },
+        new HotelClient { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
     ];
 
     /// <summary>

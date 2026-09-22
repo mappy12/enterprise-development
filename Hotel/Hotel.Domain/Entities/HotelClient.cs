@@ -3,7 +3,7 @@
 /// <summary>
 /// Клиент гостиницы
 /// </summary>
-public class Client
+public class HotelClient
 {
     /// <summary>
     /// Индентификатор клиента

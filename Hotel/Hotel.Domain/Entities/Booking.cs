@@ -13,7 +13,7 @@ public class Booking
     /// <summary>
     /// Клиент, который забронировал номер
     /// </summary>
-    public Client Client { get; set; } = null!;
+    public HotelClient Client { get; set; } = null!;
 
     /// <summary> 
     /// Забронированный номер гостиницы
