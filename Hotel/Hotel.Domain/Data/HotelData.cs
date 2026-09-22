@@ -11,7 +11,7 @@ public static class HotelData
     /// <summary>
     /// Список типов номеров гостиницы
     /// </summary>
-    public static List<RoomType> RoomTypes { get; } =
+    public static IReadOnlyList<RoomType> RoomTypes { get; } =
     [
         new RoomType { Id = 1, Category = RoomCategory.Economy, Area = 18, BedCount = 1, HasBathroom = true, PricePerDay = 2500 },
         new RoomType { Id = 2, Category = RoomCategory.Economy, Area = 22, BedCount = 2, HasBathroom = false, PricePerDay = 3000 },
@@ -28,7 +28,7 @@ public static class HotelData
     /// <summary>
     /// Список номеров гостиницы
     /// </summary>
-    public static List<Room> Rooms { get; } =
+    public static IReadOnlyList<Room> Rooms { get; } =
     [
         new Room { Id = 1, RoomNumber = 101, Floor = 1, HasBalcony = false, RoomType = RoomTypes[0] },
         new Room { Id = 2, RoomNumber = 102, Floor = 1, HasBalcony = true, RoomType = RoomTypes[1] },
@@ -45,7 +45,7 @@ public static class HotelData
     /// <summary>
     /// Список клиентов гостиницы
     /// </summary>
-    public static List<HotelClient> Clients { get; } =
+    public static IReadOnlyList<HotelClient> Clients { get; } =
     [
         new HotelClient { Id = 1, PassportNumber = "AA123456", FirstName = "Alexey", LastName = "Ivanov", BirthDate = new DateOnly(1990, 5, 12), Citizenship = "Russia" },
         new HotelClient { Id = 2, PassportNumber = "BB234567", FirstName = "Anna", LastName = "Petrova", BirthDate = new DateOnly(1988, 3, 20), Citizenship = "Russia" },
@@ -62,7 +62,7 @@ public static class HotelData
     /// <summary>
     /// Список бронирований номеров гостиницы
     /// </summary>
-    public static List<Booking> Bookings { get; } =
+    public static IReadOnlyList<Booking> Bookings { get; } =
     [
         new Booking { Id = 1, Client = Clients[0], Room = Rooms[6], CheckInDate = new DateTime(2026, 9, 1), DaysCount = 3 },
         new Booking { Id = 2, Client = Clients[1], Room = Rooms[6], CheckInDate = new DateTime(2026, 9, 4), DaysCount = 5 },
