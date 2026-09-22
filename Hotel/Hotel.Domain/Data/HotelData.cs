@@ -84,7 +84,7 @@ public static class HotelData
         new Booking { Id = 18, Client = Clients[7], Room = Rooms[3], CheckInDate = new DateOnly(2026, 4, 10), DaysCount = 4 },
         new Booking { Id = 19, Client = Clients[8], Room = Rooms[5], CheckInDate = new DateOnly(2026, 3, 1), DaysCount = 5 },
         new Booking { Id = 20, Client = Clients[9], Room = Rooms[7], CheckInDate = new DateOnly(2026, 3, 10), DaysCount = 2 },
-        new Booking { Id = 21, Client = Clients[10], Room = Rooms[3], CheckInDate = new DateOnly(2026, 8, 5), DaysCount = 4 },
-        new Booking { Id = 22, Client = Clients[10], Room = Rooms[5], CheckInDate = new DateOnly(2026, 8, 3), DaysCount = 7 }
+        new Booking { Id = 21, Client = Clients[0], Room = Rooms[3], CheckInDate = new DateOnly(2026, 8, 5), DaysCount = 4 },
+        new Booking { Id = 22, Client = Clients[1], Room = Rooms[5], CheckInDate = new DateOnly(2026, 8, 3), DaysCount = 7 }
     ];
 }

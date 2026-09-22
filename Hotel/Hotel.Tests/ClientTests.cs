@@ -22,8 +22,8 @@ public class ClientTests
         var expected = roomCategory switch
         {
             RoomCategory.Economy => new List<int> { 7, 4, 3 },
-            RoomCategory.Standard => new List<int> { 7, 8, 5, 11, 6, 9 },
-            RoomCategory.Comfort => new List<int> { 1, 4, 10, 2, 5, 3, 11, 9},
+            RoomCategory.Standard => new List<int> { 7, 1, 8, 5, 6, 9 },
+            RoomCategory.Comfort => new List<int> { 1, 4, 10, 2, 5, 3, 9},
             RoomCategory.Luxury => new List<int> { 1, 10, 2},
             _ => throw new ArgumentOutOfRangeException(nameof(roomCategory),
                 $"Такая категория номера не поддерживается: {roomCategory}")
@@ -49,11 +49,11 @@ public class ClientTests
     {
         var expected = new List<int>
         {
-            5,
-            11,
-            10,
             2,
+            5,
             1,
+            10,
+            9,
         };
 
         var result = HotelData.Bookings
