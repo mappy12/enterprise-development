@@ -12,17 +12,21 @@ public class ClientTests
     /// Проверяет получение клиентов, проживавших в номерах указанного типа,
     /// с сортировкой по полному имени
     /// </summary>
-    [Fact]
-    public void GetClientsByRoomType()
+    [Theory]
+    [InlineData(RoomCategory.Economy)]
+    [InlineData(RoomCategory.Standard)]
+    [InlineData(RoomCategory.Comfort)]
+    [InlineData(RoomCategory.Luxury)]
+    public void GetClientsByRoomType(RoomCategory roomCategory)
     {
-        var roomCategory = RoomCategory.Standard;
-
-        var expected = new List<string>
+        var expected = roomCategory switch
         {
-            "Dmitry Smirnov",
-            "Elena Kuznetsova",
-            "Ivan Popov",
-            "Maria Sokolova"
+            RoomCategory.Economy => new List<int> { 7, 4, 3 },
+            RoomCategory.Standard => new List<int> { 7, 8, 5, 11, 6, 9 },
+            RoomCategory.Comfort => new List<int> { 1, 4, 10, 2, 5, 3, 11, 9},
+            RoomCategory.Luxury => new List<int> { 1, 10, 2},
+            _ => throw new ArgumentOutOfRangeException(nameof(roomCategory),
+                $"Такая категория номера не поддерживается: {roomCategory}")
         };
 
         var result = HotelData.Bookings
@@ -31,12 +35,11 @@ public class ClientTests
             .Distinct()
             .OrderBy(client => client.LastName)
             .ThenBy(client => client.FirstName)
-            .Select(client => $"{client.LastName} {client.FirstName}")
+            .Select(client => client.Id)
             .ToList();
 
         Assert.Equal(expected, result);
     }
-
 
     /// <summary>
     /// Проверяет получение пяти клиентов с наибольшей общей стоимостью проживания
@@ -44,13 +47,13 @@ public class ClientTests
     [Fact]
     public void GetTopFiveClientsByTotalStayCost()
     {
-        var expected = new List<string>
+        var expected = new List<int>
         {
-            "Pavel Volkov",
-            "Sofia Orlova",
-            "Nikolay Fedorov",
-            "Ivan Popov",
-            "Maria Sokolova"
+            5,
+            11,
+            10,
+            2,
+            1,
         };
 
         var result = HotelData.Bookings
@@ -64,11 +67,9 @@ public class ClientTests
             .OrderByDescending(item => item.TotalCost)
             .ThenBy(item => item.Client.LastName)
             .Take(5)
-            .Select(item => $"{item.Client.LastName} {item.Client.FirstName}")
+            .Select(item => item.Client.Id)
             .ToList();
 
         Assert.Equal(expected, result);
     }
-    
-    
 }

@@ -3,7 +3,7 @@
 namespace Hotel.Domain.Entities;
 
 /// <summary>
-/// Тим номера гостиницы
+/// Тип номера гостиницы
 /// </summary>
 public class RoomType
 {

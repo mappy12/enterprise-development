@@ -13,23 +13,22 @@ public class RoomTests
     [Fact]
     public void GetBookedRooms()
     {
-        var currentDate = new DateTime(2026, 9, 10);
+        var currentDate = new DateTime(2026, 8, 6);
 
         var expected = new List<int>
         {
-            101,
-            302,
-            402,
-            501
+            3,
+            4,
+            6
         };
 
         var result = HotelData.Bookings
             .Where(booking =>
                 booking.CheckInDate <= currentDate &&
                 currentDate < booking.CheckInDate.AddDays(booking.DaysCount))
-            .Select(booking => booking.Room.RoomNumber)
+            .Select(booking => booking.Room.Id)
             .Distinct()
-            .OrderBy(roomNumber => roomNumber)
+            .OrderBy(roomId => roomId)
             .ToList();
 
         Assert.Equal(expected, result);
@@ -43,19 +42,20 @@ public class RoomTests
     {
         var expected = new List<int>
         {
-            101,
-            102,
-            201,
-            202,
-            301
+            7,
+            3,
+            10,
+            2,
+            4
+         
         };
 
         var result = HotelData.Bookings
             .GroupBy(booking => booking.Room)
             .OrderByDescending(group => group.Count())
-            .ThenBy(group => group.Key.RoomNumber)
+            .ThenBy(group => group.Key.Id)
             .Take(5)
-            .Select(group => group.Key.RoomNumber)
+            .Select(group => group.Key.Id)
             .ToList();
 
         Assert.Equal(expected, result);
@@ -64,28 +64,21 @@ public class RoomTests
     /// <summary>
     /// Проверяет количество бронирований для каждого номера
     /// </summary>
-    [Fact]
-    public void GetBookingCountForEachRoom()
+    [Theory]
+    [InlineData(1,1)]
+    [InlineData(2, 2)]
+    [InlineData(3, 4)]
+    [InlineData(4, 2)]
+    [InlineData(5, 2)]
+    [InlineData(6, 2)]
+    [InlineData(7, 5)]
+    [InlineData(8, 1)]
+    [InlineData(9, 0)]
+    [InlineData(10, 3)]
+    public void GetBookingCountForEachRoom(int roomId, int expected)
     {
-        var expected = new Dictionary<int, int>
-        {
-            [101] = 3,
-            [102] = 2,
-            [201] = 2,
-            [202] = 2,
-            [301] = 2,
-            [302] = 2,
-            [401] = 2,
-            [402] = 2,
-            [501] = 2,
-            [502] = 1,
-        };
-
         var result = HotelData.Bookings
-            .GroupBy(booking => booking.Room)
-            .ToDictionary(
-                group => group.Key.RoomNumber,
-                group => group.Count());
+            .Count(booking => booking.Room.Id == roomId);
 
         Assert.Equal(expected, result);
     }
