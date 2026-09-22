@@ -2,14 +2,13 @@
 
 namespace Hotel.Domain.Entities;
 
-
 /// <summary>
 /// Тим номера гостиницы
 /// </summary>
 public class RoomType
 {
     /// <summary>
-    /// Индентификатор типа номера
+    /// Идентификатор типа номера
     /// </summary>
     public required int Id { get; set; }
 

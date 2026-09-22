@@ -3,10 +3,10 @@
 /// <summary>
 /// Номер в гостинице
 /// </summary>
-public class  Room
+public class Room
 {
     /// <summary>
-    /// Индектификатор номера
+    /// Идентификатор номера
     /// </summary>
     public required int Id { get; set; }
 

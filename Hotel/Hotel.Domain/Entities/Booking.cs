@@ -6,7 +6,7 @@
 public class Booking
 {
     /// <summary>
-    /// Индентификатор бронирования
+    /// Идентификатор бронирования
     /// </summary>
     public required int Id { get; set; }
 

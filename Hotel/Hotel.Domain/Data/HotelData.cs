@@ -61,7 +61,7 @@ public static class HotelData
         new HotelClient { Id = 11, PassportNumber = "AB987654", FullName = "John Smith", BirthDate = new DateTime(1989, 2, 14), Citizenship = "USA" },
         new HotelClient { Id = 12, PassportNumber = "CD876543", FullName = "Hans Mueller", BirthDate = new DateTime(1994, 10, 30), Citizenship = "Germany" },
         new HotelClient { Id = 13, PassportNumber = "XO1234567", FullName = "Yuki Tanaka", BirthDate = new DateTime(1997, 11, 5), Citizenship = "Japan" },
-        new HotelClient { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },  
+        new HotelClient { Id = 14, PassportNumber = "FR987654321", FullName = "Pierre Dubois", BirthDate = new DateTime(1982, 6, 19), Citizenship = "France" },
     ];
 
     /// <summary>

@@ -6,7 +6,7 @@
 public class HotelClient
 {
     /// <summary>
-    /// Индентификатор клиента
+    /// Идентификатор клиента
     /// </summary>
     public required int Id { get; set; }
 
