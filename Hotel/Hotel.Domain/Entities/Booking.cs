@@ -23,7 +23,7 @@ public class Booking
     /// <summary>
     /// Дата заселения клиента
     /// </summary>
-    public DateTime CheckInDate { get; set; }
+    public DateOnly CheckInDate { get; set; }
 
     /// <summary>
     /// Количество дней проживания

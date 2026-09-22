@@ -13,7 +13,7 @@ public class RoomTests
     [Fact]
     public void GetBookedRooms()
     {
-        var currentDate = new DateTime(2026, 8, 6);
+        var currentDate = new DateOnly(2026, 8, 6);
 
         var expected = new List<int>
         {
