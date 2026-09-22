@@ -57,7 +57,8 @@ public static class HotelData
         new HotelClient { Id = 8, PassportNumber = "HH890123", FirstName = "Olga", LastName = "Morozova", BirthDate = new DateOnly(1993, 12, 18), Citizenship = "Russia" },
         new HotelClient { Id = 9, PassportNumber = "II901234", FirstName = "Pavel", LastName = "Volkov", BirthDate = new DateOnly(1991, 4, 7), Citizenship = "Russia" },
         new HotelClient { Id = 10, PassportNumber = "JJ012345", FirstName = "Sofia", LastName = "Orlova", BirthDate = new DateOnly(1996, 8, 22), Citizenship = "Russia" },
-        new HotelClient { Id = 11, PassportNumber = "AB987654", FirstName = "John", LastName = "Smith", BirthDate = new DateOnly(1989, 2, 14), Citizenship = "USA" }];
+        new HotelClient { Id = 11, PassportNumber = "AB987654", FirstName = "John", LastName = "Smith", BirthDate = new DateOnly(1989, 2, 14), Citizenship = "USA" }
+    ];
 
     /// <summary>
     /// Список бронирований номеров гостиницы

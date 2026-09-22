@@ -9,26 +9,25 @@ namespace Hotel.Tests;
 public class ClientTests
 {
     /// <summary>
+    /// Данные для проверки получения клиентов, проживавших в номерах указанного типа,
+    /// с сортировкой по полному имени
+    /// </summary>
+    public static TheoryData<RoomCategory, int[]> ClientsByRoomTypeData => new()
+    {
+        { RoomCategory.Economy, [7, 4, 3] },
+        { RoomCategory.Standard, [7, 1, 8, 5, 6, 9] },
+        { RoomCategory.Comfort, [1, 4, 10, 2, 5, 3, 9] },
+        { RoomCategory.Luxury, [1, 10, 2] }
+    };
+
+    /// <summary>
     /// Проверяет получение клиентов, проживавших в номерах указанного типа,
     /// с сортировкой по полному имени
     /// </summary>
     [Theory]
-    [InlineData(RoomCategory.Economy)]
-    [InlineData(RoomCategory.Standard)]
-    [InlineData(RoomCategory.Comfort)]
-    [InlineData(RoomCategory.Luxury)]
-    public void GetClientsByRoomType(RoomCategory roomCategory)
+    [MemberData(nameof(ClientsByRoomTypeData))]
+    public void GetClientsByRoomType(RoomCategory roomCategory, int[] expected)
     {
-        var expected = roomCategory switch
-        {
-            RoomCategory.Economy => new List<int> { 7, 4, 3 },
-            RoomCategory.Standard => new List<int> { 7, 1, 8, 5, 6, 9 },
-            RoomCategory.Comfort => new List<int> { 1, 4, 10, 2, 5, 3, 9 },
-            RoomCategory.Luxury => new List<int> { 1, 10, 2 },
-            _ => throw new ArgumentOutOfRangeException(nameof(roomCategory),
-                $"Такая категория номера не поддерживается: {roomCategory}")
-        };
-
         var result = HotelData.Bookings
             .Where(booking => booking.Room.RoomType.Category == roomCategory)
             .Select(booking => booking.Client)
@@ -47,14 +46,7 @@ public class ClientTests
     [Fact]
     public void GetTopFiveClientsByTotalStayCost()
     {
-        var expected = new List<int>
-        {
-            2,
-            5,
-            1,
-            10,
-            9,
-        };
+        var expected = new List<int> { 2, 5, 1, 10, 9 };
 
         var result = HotelData.Bookings
             .GroupBy(booking => booking.Client)

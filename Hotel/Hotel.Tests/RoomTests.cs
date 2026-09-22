@@ -13,14 +13,9 @@ public class RoomTests
     [Fact]
     public void GetBookedRooms()
     {
-        var currentDate = new DateOnly(2026, 8, 6);
+        var expected = new List<int> { 3, 4, 6 };
 
-        var expected = new List<int>
-        {
-            3,
-            4,
-            6
-        };
+        var currentDate = new DateOnly(2026, 8, 6);
 
         var result = HotelData.Bookings
             .Where(booking =>
@@ -40,15 +35,7 @@ public class RoomTests
     [Fact]
     public void GetTopFiveMostBookedRooms()
     {
-        var expected = new List<int>
-        {
-            7,
-            3,
-            10,
-            2,
-            4
-
-        };
+        var expected = new List<int> { 7, 3, 10, 2, 4 };
 
         var result = HotelData.Bookings
             .GroupBy(booking => booking.Room)
