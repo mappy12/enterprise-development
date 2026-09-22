@@ -27,9 +27,11 @@ public class ClientTests
 
         var result = HotelData.Bookings
             .Where(booking => booking.Room.RoomType.Category == roomCategory)
-            .Select(booking => booking.Client.FullName)
+            .Select(booking => booking.Client)
             .Distinct()
-            .OrderBy(name => name)
+            .OrderBy(client => client.LastName)
+            .ThenBy(client => client.FirstName)
+            .Select(client => $"{client.LastName} {client.FirstName}")
             .ToList();
 
         Assert.Equal(expected, result);
@@ -60,9 +62,9 @@ public class ClientTests
                     booking.DaysCount * booking.Room.RoomType.PricePerDay)
             })
             .OrderByDescending(item => item.TotalCost)
-            .ThenBy(item => item.Client.FullName)
+            .ThenBy(item => item.Client.LastName)
             .Take(5)
-            .Select(item => item.Client.FullName)
+            .Select(item => $"{item.Client.LastName} {item.Client.FirstName}")
             .ToList();
 
         Assert.Equal(expected, result);

@@ -8,17 +8,17 @@ public class Booking
     /// <summary>
     /// Индентификатор бронирования
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Клиент, который забронировал номер
     /// </summary>
-    public HotelClient Client { get; set; } = null!;
+    public required HotelClient Client { get; set; }
 
     /// <summary> 
     /// Забронированный номер гостиницы
     /// </summary>
-    public Room Room { get; set; } = null!;
+    public required Room Room { get; set; }
 
     /// <summary>
     /// Дата заселения клиента

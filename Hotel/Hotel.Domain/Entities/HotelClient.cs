@@ -8,25 +8,35 @@ public class HotelClient
     /// <summary>
     /// Индентификатор клиента
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Номер паспорта клиента
     /// </summary>
-    public string PassportNumber { get; set; } = string.Empty;
+    public required string PassportNumber { get; set; }
 
     /// <summary>
-    /// Полное имя клиента
+    /// Имя клиента
     /// </summary>
-    public string FullName { get; set; } = string.Empty;
+    public required string FirstName { get; set; }
+
+    /// <summary>
+    /// Фамилия клиента
+    /// </summary>
+    public required string LastName { get; set; }
+
+    /// <summary>
+    /// Отчество клиента
+    /// </summary>
+    public string? MiddleName { get; set; }
 
     /// <summary>
     /// Дата рождения клиента
     /// </summary>
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
     /// <summary>
     /// Гражданство клиента
     /// </summary>
-    public string Citizenship { get; set; } = string.Empty;
+    public required string Citizenship { get; set; }
 }

@@ -11,7 +11,7 @@ public class RoomType
     /// <summary>
     /// Индентификатор типа номера
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Категория номера

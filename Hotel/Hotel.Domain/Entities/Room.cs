@@ -8,7 +8,7 @@ public class  Room
     /// <summary>
     /// Индектификатор номера
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Номер комнаты
@@ -28,5 +28,5 @@ public class  Room
     /// <summary>
     /// Тип номера
     /// </summary>
-    public RoomType RoomType { get; set; } = null!;
+    public required RoomType RoomType { get; set; }
 }
