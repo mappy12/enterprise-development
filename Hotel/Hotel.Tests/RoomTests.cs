@@ -47,7 +47,7 @@ public class RoomTests
             10,
             2,
             4
-         
+
         };
 
         var result = HotelData.Bookings
@@ -65,7 +65,7 @@ public class RoomTests
     /// Проверяет количество бронирований для каждого номера
     /// </summary>
     [Theory]
-    [InlineData(1,1)]
+    [InlineData(1, 1)]
     [InlineData(2, 2)]
     [InlineData(3, 4)]
     [InlineData(4, 2)]
