@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Hotel.Application.Contracts.Rooms;
 
-namespace Hotel.Application.Contracts.Rooms;
-
-internal class CreateRoomDto
-{
-}
+/// <summary>
+/// DTO для создания номера
+/// </summary>
+public record CreateRoomDto(
+    int RoomNumber,
+    int Floor,
+    bool HasBalcony,
+    int RoomTypeId
+);
