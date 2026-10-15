@@ -1,4 +1,4 @@
-﻿using Hotel.Domain.Shared;
+﻿using Hotel.Domain.Shared.Enums;
 
 namespace Hotel.Domain.Entities;
 

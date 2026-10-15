@@ -1,4 +1,4 @@
-﻿namespace Hotel.Domain.Shared;
+﻿namespace Hotel.Domain.Shared.Enums;
 
 /// <summary>
 /// Категория номера гостиницы

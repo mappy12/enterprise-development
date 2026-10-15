@@ -1,5 +1,5 @@
 ﻿using Hotel.Domain.Entities;
-using Hotel.Domain.Shared;
+using Hotel.Domain.Shared.Enums;
 
 namespace Hotel.Domain.Data;
 
