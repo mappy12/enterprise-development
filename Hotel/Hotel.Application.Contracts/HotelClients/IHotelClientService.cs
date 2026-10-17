@@ -1,4 +1,6 @@
-﻿namespace Hotel.Application.Contracts.HotelClients;
+﻿using Hotel.Domain.Shared.Enums;
+
+namespace Hotel.Application.Contracts.HotelClients;
 
 /// <summary>
 /// Интерфейс для работы с клиентами гостиницы
@@ -10,4 +12,9 @@ public interface IHotelClientService
     /// Получить топ пять клиентов по общей стоимости проживания
     /// </summary>
     public IReadOnlyList<HotelClientStayCostDto> GetTopFiveClientsByTotalStayCost();
+
+    /// <summary>
+    /// Получает клинтов, бронировавших номерка указанной категории
+    /// </summary>
+    public IReadOnlyList<HotelClientDto> GetClientsByRoomCategory(RoomCategory category);
 }
