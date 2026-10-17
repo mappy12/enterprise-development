@@ -5,5 +5,9 @@
 /// </summary>
 public interface IHotelClientService
     : ICrudService<HotelClientDto, CreateHotelClientDto, int>
-{    
+{
+    /// <summary>
+    /// Получить топ пять клиентов по общей стоимости проживания
+    /// </summary>
+    public IReadOnlyList<HotelClientStayCostDto> GetTopFiveClientsByTotalStayCost();
 }
