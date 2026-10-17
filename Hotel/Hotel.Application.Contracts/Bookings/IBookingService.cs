@@ -6,4 +6,8 @@
 public interface IBookingService
     : ICrudService<BookingDto, CreateBookingDto, int>
 {
+    /// <summary>
+    /// Получить текущие бронирования
+    /// </summary>
+    public IReadOnlyList<BookingDto> GetBookedRooms();
 }
