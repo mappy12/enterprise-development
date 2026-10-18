@@ -4,7 +4,7 @@ using Hotel.Domain.Entities;
 
 namespace Hotel.Infrastructure.InMemory.Repositories;
 
-public class BookingRepository : IBookingRepository
+public class BookingRepository : IRepository<Booking>
 {
     private readonly List<Booking> _bookings;
 

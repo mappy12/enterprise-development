@@ -7,7 +7,7 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 /// <summary>
 /// Репозиторий клиентов гостиницы в памяти
 /// </summary>
-public class HotelClientRepository : IHotelClientRepository
+public class HotelClientRepository : IRepository<HotelClient>
 {
     /// <summary>
     /// Данные клиентов гостиницы

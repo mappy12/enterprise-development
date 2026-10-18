@@ -8,7 +8,7 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 /// <summary>
 /// Репозиторий номеров гостницы в памяти
 /// </summary>
-public class RoomRepository : IRoomRepository
+public class RoomRepository : IRepository<Room>
 {
     /// <summary>
     /// Данные номеров гостиницы

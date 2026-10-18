@@ -7,7 +7,7 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 /// <summary>
 /// Репозиторий типов номеров в памяти
 /// </summary>
-public class RoomTypeRepository : IRoomTypeRepository
+public class RoomTypeRepository : IRepository<RoomType>
 {
     /// <summary>
     /// Данные типов номеров гостницы
