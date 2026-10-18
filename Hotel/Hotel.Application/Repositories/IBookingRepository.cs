@@ -17,7 +17,6 @@ public interface IBookingRepository
     /// </summary>
     public Booking? GetById(int id);
 
-
     /// <summary>
     /// Добавить новое бронирование
     /// </summary>

@@ -56,7 +56,6 @@ public class HotelClientRepository : IHotelClientRepository
         var index = _clients.FindIndex(item => item.Id == client.Id);
 
         if (index == -1) return null;
-
         _clients[index] = client;
 
         return client;

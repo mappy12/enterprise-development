@@ -57,7 +57,6 @@ public class RoomRepository : IRoomRepository
         var index = _rooms.FindIndex(item => item.Id == room.Id);
 
         if (index == -1) return null;
-
         _rooms[index] = room;
 
         return room;
