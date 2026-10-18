@@ -9,6 +9,9 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 /// </summary>
 public class RoomTypeRepository : IRoomTypeRepository
 {
+    /// <summary>
+    /// Данные типов номеров гостницы
+    /// </summary>
     private readonly List<RoomType> _roomTypes;
 
     /// <summary>
