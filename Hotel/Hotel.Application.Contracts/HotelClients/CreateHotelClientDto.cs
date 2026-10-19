@@ -4,7 +4,7 @@
 /// DTO для создания клиента
 /// </summary>
 public record CreateHotelClientDto(
-    string PaspportNumber,
+    string PassportNumber,
     string FirstName,
     string LastName,
     string? MiddleName,
