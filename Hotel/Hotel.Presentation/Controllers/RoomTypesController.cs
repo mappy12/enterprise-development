@@ -1,5 +1,4 @@
 ﻿using Hotel.Application.Contracts.RoomTypes;
-using Microsoft.Extensions.Logging;
 
 namespace Hotel.Api.Host.Controllers;
 

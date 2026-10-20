@@ -27,7 +27,7 @@ public class BookingService : IBookingService
     /// <summary>
     /// Инициализация службы
     /// </summary>
-    public BookingService (
+    public BookingService(
         IRepository<Booking, int> bookingRepository,
         IRepository<HotelClient, int> clientRepository,
         IRepository<Room, int> roomRepository)

@@ -23,7 +23,7 @@ public class BookingsController : CrudControllerBase<BookingDto, CreateBookingDt
     /// </summary>
     public BookingsController(
         IBookingService appService,
-        ILogger<BookingsController> logger) : base (appService, logger)
+        ILogger<BookingsController> logger) : base(appService, logger)
     {
         _bookingService = appService;
         _logger = logger;

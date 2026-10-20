@@ -7,7 +7,7 @@
 /// <typeparam name="TInputDto">DTO для создания и обновления</typeparam>
 /// <typeparam name="TKey">Тип идентификатора</typeparam>
 public interface ICrudService<TDto, TInputDto, TKey>
-    where TKey: notnull
+    where TKey : notnull
 {
     /// <summary>
     /// Получить список всех объектов

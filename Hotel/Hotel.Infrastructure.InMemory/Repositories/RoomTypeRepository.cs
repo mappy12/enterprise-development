@@ -41,7 +41,7 @@ public class RoomTypeRepository : IRepository<RoomType, int>
     /// <summary>
     /// Добавить новый тип номера
     /// </summary>
-    public RoomType Add (RoomType roomType)
+    public RoomType Add(RoomType roomType)
     {
         _roomTypes.Add(roomType);
 

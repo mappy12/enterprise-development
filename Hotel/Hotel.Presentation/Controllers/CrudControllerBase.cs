@@ -1,6 +1,5 @@
 ﻿using Hotel.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Hotel.Api.Host.Controllers;
 
@@ -60,7 +59,8 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
                 GetType().Name);
 
             return StatusCode(StatusCodes.Status201Created, result);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             _logger.LogError(
                 exception,
@@ -79,7 +79,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<TDto> Update(TKey id, [FromBody]TInputDto dto)
+    public ActionResult<TDto> Update(TKey id, [FromBody] TInputDto dto)
     {
         _logger.LogInformation(
             "Метод {Method} контроллера {Controller} вызван с идентификатором {Id} и данными {@Dto}.",
