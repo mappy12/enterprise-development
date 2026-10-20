@@ -61,6 +61,14 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
             return StatusCode(StatusCodes.Status201Created, result);
         }
+        catch (ArgumentException exception)
+        {
+            _logger.LogWarning(
+                exception,
+                "При создании записи переданы некорректные данные.");
+
+            return BadRequest(new { message = exception.Message });
+        }
         catch (Exception exception)
         {
             _logger.LogError(
@@ -80,6 +88,8 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [EndpointSummary("Обновить существующую запись")]
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult<TDto> Update(TKey id, [FromBody] TInputDto dto)
     {
@@ -94,12 +104,33 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         {
             var result = _appService.Update(id, dto);
 
+            if (result is null)
+            {
+                _logger.LogWarning(
+                    "Запись с идентификатором {Id} не найдена для обновления.",
+                    id);
+
+                return NotFound(new
+                {
+                    message = $"Запись с идентификатором {id} не найдена"
+                });
+            }
+
             _logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(Update),
                 GetType().Name);
 
             return Ok(result);
+        }
+        catch (ArgumentException exception)
+        {
+            _logger.LogWarning(
+                exception,
+                "При обновлении записи с идентификатором {Id} переданы некорректные данные.",
+                id);
+
+            return BadRequest(new { message = exception.Message });
         }
         catch (Exception exception)
         {
@@ -121,6 +152,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [EndpointSummary("Удалить запись по идентификатору")]
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public IActionResult Delete(TKey id)
     {
@@ -132,7 +164,19 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
         try
         {
-            _appService.Delete(id);
+            var result = _appService.Delete(id);
+
+            if (!result)
+            {
+                _logger.LogWarning(
+                    "Запись с идентификатором {Id} не найдена для удаления.",
+                    id);
+
+                return NotFound(new
+                {
+                    message = $"Запись с идентификатором {id} не найдена"
+                });
+            }
 
             _logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
@@ -200,7 +244,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [EndpointSummary("Вернуть запись по идентификатору")]
     [HttpGet("{id}")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
+    [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult<TDto> GetById(TKey id)
     {
@@ -214,12 +258,24 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         {
             var result = _appService.GetById(id);
 
+            if (result is null)
+            {
+                _logger.LogWarning(
+                    "Запись с идентификатором {Id} не найдена",
+                    id);
+
+                return NotFound(new
+                {
+                    message = $"Запись с идентификатором {id} не найдена"
+                });
+            }
+
             _logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(GetById),
                 GetType().Name);
 
-            return result is not null ? Ok(result) : NoContent();
+            return Ok(result);
         }
         catch (Exception exception)
         {

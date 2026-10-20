@@ -14,7 +14,7 @@ public interface IHotelClientService
     public IReadOnlyList<HotelClientStayCostDto> GetTopFiveClientsByTotalStayCost();
 
     /// <summary>
-    /// Получает клинтов, бронировавших номерка указанной категории
+    /// Получает клинтов, бронировавших номера указанной категории
     /// </summary>
     public IReadOnlyList<HotelClientDto> GetClientsByRoomCategory(RoomCategory category);
 }
