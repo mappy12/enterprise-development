@@ -1,5 +1,5 @@
 ﻿using Hotel.Application.Contracts.Rooms;
-using Hotel.Application.Repositories;
+using Hotel.Domain;
 using Hotel.Domain.Entities;
 
 namespace Hotel.Application.Services;
@@ -12,25 +12,25 @@ public class RoomService : IRoomService
     /// <summary>
     /// Репозиторий номеров гостиницы
     /// </summary>
-    private readonly IRepository<Room> _roomRepository;
+    private readonly IRepository<Room, int> _roomRepository;
 
     /// <summary>
     /// Репозиторий типов номеров
     /// </summary>
-    private readonly IRepository<RoomType> _roomTypeRepository;
+    private readonly IRepository<RoomType, int> _roomTypeRepository;
 
     /// <summary>
     /// Репозиторий бронирований
     /// </summary>
-    private readonly IRepository<Booking> _bookingRepository;
+    private readonly IRepository<Booking, int> _bookingRepository;
 
     /// <summary>
     /// Инициализация службы
     /// </summary>
     public RoomService(
-        IRepository<Room> roomRepository,
-        IRepository<RoomType> roomTypeRepository,
-        IRepository<Booking> bookingRepository)
+        IRepository<Room, int> roomRepository,
+        IRepository<RoomType, int> roomTypeRepository,
+        IRepository<Booking, int> bookingRepository)
     {
         _roomRepository = roomRepository;
         _roomTypeRepository = roomTypeRepository;

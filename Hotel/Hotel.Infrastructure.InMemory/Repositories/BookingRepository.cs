@@ -1,10 +1,10 @@
-﻿using Hotel.Application.Repositories;
+﻿using Hotel.Domain;
 using Hotel.Domain.Data;
 using Hotel.Domain.Entities;
 
 namespace Hotel.Infrastructure.InMemory.Repositories;
 
-public class BookingRepository : IRepository<Booking>
+public class BookingRepository : IRepository<Booking, int>
 {
     private readonly List<Booking> _bookings;
 

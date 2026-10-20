@@ -1,10 +1,13 @@
-﻿namespace Hotel.Application.Repositories;
+﻿namespace Hotel.Domain;
 
 /// <summary>
 /// Обобщённый интерфейс репозитория
 /// </summary>
-public interface IRepository<TEntity>
+/// <typeparam name="TEntity">Тип сущности</typeparam>
+/// <typeparam name="TKey">Тип идентификатора</typeparam>
+public interface IRepository<TEntity, TKey>
     where TEntity : class
+    where TKey : struct
 {
     /// <summary>
     /// Получить все сущности
@@ -14,7 +17,7 @@ public interface IRepository<TEntity>
     /// <summary>
     /// Получить сущность по идентификатору
     /// </summary>
-    public TEntity? GetById(int id);
+    public TEntity? GetById(TKey id);
 
     /// <summary>
     /// Добавить новую сущность
@@ -29,5 +32,5 @@ public interface IRepository<TEntity>
     /// <summary>
     /// Удалить сущность по идентификатору
     /// </summary>
-    public bool Delete(int id);
+    public bool Delete(TKey id);
 }

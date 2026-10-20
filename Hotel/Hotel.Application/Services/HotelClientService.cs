@@ -1,5 +1,5 @@
 ﻿using Hotel.Application.Contracts.HotelClients;
-using Hotel.Application.Repositories;
+using Hotel.Domain;
 using Hotel.Domain.Entities;
 using Hotel.Domain.Shared.Enums;
 
@@ -13,19 +13,19 @@ public class HotelClientService : IHotelClientService
     /// <summary>
     /// Репозиторий клиентов гостиницы
     /// </summary>
-    private readonly IRepository<HotelClient> _clientRepository;
+    private readonly IRepository<HotelClient, int> _clientRepository;
 
     /// <summary>
     /// Репозиторий бронирований
     /// </summary>
-    private readonly IRepository<Booking> _bookingRepository;
+    private readonly IRepository<Booking, int> _bookingRepository;
 
     /// <summary>
     /// Инициализация службы
     /// </summary>
     public HotelClientService(
-        IRepository<HotelClient> clientRepository,
-        IRepository<Booking> bookingRepository)
+        IRepository<HotelClient, int> clientRepository,
+        IRepository<Booking, int> bookingRepository)
     {
         _clientRepository = clientRepository;
         _bookingRepository = bookingRepository;

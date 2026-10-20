@@ -1,4 +1,4 @@
-﻿using Hotel.Application.Repositories;
+﻿using Hotel.Domain;
 using Hotel.Domain.Data;
 using Hotel.Domain.Entities;
 
@@ -8,7 +8,7 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 /// <summary>
 /// Репозиторий номеров гостницы в памяти
 /// </summary>
-public class RoomRepository : IRepository<Room>
+public class RoomRepository : IRepository<Room, int>
 {
     /// <summary>
     /// Данные номеров гостиницы
