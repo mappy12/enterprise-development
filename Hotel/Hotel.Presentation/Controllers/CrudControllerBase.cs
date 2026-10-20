@@ -37,6 +37,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     /// <summary>
     /// Создать новую запись
     /// </summary>
+    [EndpointSummary("Создать новую запись")]
     [HttpPost]
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
@@ -76,6 +77,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     /// <summary>
     /// Обновить существующую запись
     /// </summary>
+    [EndpointSummary("Обновить существующую запись")]
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -116,6 +118,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     /// <summary>
     /// Удалить запись по идентификатору
     /// </summary>
+    [EndpointSummary("Удалить запись по идентификатору")]
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -155,6 +158,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     /// <summary>
     /// Вернуть список всех записей
     /// </summary>
+    [EndpointSummary("Вернуть список всех записей")]
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -193,6 +197,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     /// <summary>
     /// Вернуть запись по идентификатору
     /// </summary>
+    [EndpointSummary("Вернуть запись по идентификатору")]
     [HttpGet("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]

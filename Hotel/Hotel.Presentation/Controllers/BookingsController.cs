@@ -30,7 +30,7 @@ public class BookingsController : CrudControllerBase<BookingDto, CreateBookingDt
     }
 
     /// <summary>
-    /// Возвращает список текущих бронирований
+    /// Вернуть список текущих бронирований
     /// </summary>
     [HttpGet("current")]
     [ProducesResponseType(200)]
