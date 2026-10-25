@@ -38,8 +38,9 @@ public class HotelClientsController(IHotelClientService hotelClientService, ILog
     }
 
     /// <summary>
-    /// Вернуть пять клиентов с наибольшей общей стоимостью проживания
+    /// Получить пять клиентов с наибольшей общей стоимостью проживания
     /// </summary>
+    [EndpointSummary("Получить пять клиентов с наибольшей общей стоимостью проживания")]
     [HttpGet("top-five-by-total-stay-cost")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -66,8 +67,9 @@ public class HotelClientsController(IHotelClientService hotelClientService, ILog
     }
 
     /// <summary>
-    /// Вернуть клиентов, бронировавших комнаты указанной категории
+    /// Получить клиентов, бронировавших комнаты указанной категории
     /// </summary>
+    [EndpointSummary("Получить клиентов, бронировавших комнаты указанной категории")]
     [HttpGet("by-room-category/{category}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]

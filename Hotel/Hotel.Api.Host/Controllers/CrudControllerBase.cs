@@ -131,9 +131,9 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     }
 
     /// <summary>
-    /// Вернуть список всех записей
+    /// Получить список всех записей
     /// </summary>
-    [EndpointSummary("Вернуть список всех записей")]
+    [EndpointSummary("Получить список всех записей")]
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -158,9 +158,9 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     }
 
     /// <summary>
-    /// Вернуть запись по идентификатору
+    /// Получить запись по идентификатору
     /// </summary>
-    [EndpointSummary("Вернуть запись по идентификатору")]
+    [EndpointSummary("Получить запись по идентификатору")]
     [HttpGet("{id:int}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]

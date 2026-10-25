@@ -37,8 +37,9 @@ public class RoomController(IRoomService roomService, ILogger<RoomController> lo
     }
 
     /// <summary>
-    /// Вернуть пять комнат с наибольшим количеством бронирований
+    /// Получить пять комнат с наибольшим количеством бронирований
     /// </summary>
+    [EndpointSummary("Получить пять комнат с наибольшим количеством бронирований")]
     [HttpGet("top-five-most-booked")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
@@ -63,8 +64,9 @@ public class RoomController(IRoomService roomService, ILogger<RoomController> lo
     }
 
     /// <summary>
-    /// Вернуть количество бронирований для каждой комнаты
+    /// Получить количество бронирований для каждой комнаты
     /// </summary>
+    [EndpointSummary("Получить количество бронирований для каждой комнаты")]
     [HttpGet("booking-counts")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]

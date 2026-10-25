@@ -10,8 +10,9 @@ public class BookingsController(IBookingService bookingService, ILogger<Bookings
     : CrudControllerBase<BookingDto, CreateBookingDto, int>(bookingService, logger)
 {
     /// <summary>
-    /// Вернуть список текущих бронирований
+    /// Получить список текущих бронирований
     /// </summary>
+    [EndpointSummary("Получить список текущих бронирований")]
     [HttpGet("current")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
