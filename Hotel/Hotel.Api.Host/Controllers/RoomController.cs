@@ -1,5 +1,6 @@
 ﻿using Hotel.Application.Contracts.Rooms;
 using Microsoft.AspNetCore.Mvc;
+using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Api.Host.Controllers;
 
@@ -9,6 +10,32 @@ namespace Hotel.Api.Host.Controllers;
 public class RoomsController(IRoomService roomService, ILogger<RoomsController> logger)
     : CrudControllerBase<RoomDto, CreateRoomDto, int>(roomService, logger)
 {
+    /// <summary>
+    /// Получить бронирования указанного номера
+    /// </summary>
+    [HttpGet("{id:int}/bookings")]
+    [EndpointSummary("Получить бронирования указанного номера")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public ActionResult<IReadOnlyList<BookingDto>> GetBookingsByRoomId(int id)
+    {
+        try
+        {
+            var result = roomService.GetBookingsByRoomId(id);
+
+            if (result is null) return NotFound();
+
+            return Ok(result);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception, "При получении бронирований номера {RoomId} произошла ошибка", id);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+        }
+    }
+
     /// <summary>
     /// Вернуть пять комнат с наибольшим количеством бронирований
     /// </summary>

@@ -1,4 +1,5 @@
-﻿using Hotel.Application.Contracts.Rooms;
+﻿using Hotel.Application.Contracts.Bookings;
+using Hotel.Application.Contracts.Rooms;
 using Hotel.Domain;
 using Hotel.Domain.Entities;
 
@@ -91,6 +92,27 @@ public class RoomService(IRepository<Room, int> roomRepository, IRepository<Room
     public bool Delete(int id)
     {
         return roomRepository.Delete(id);
+    }
+
+    /// <summary>
+    /// Получить бронирования указанного номера
+    /// </summary>
+    public IReadOnlyList<BookingDto>? GetBookingsByRoomId(int roomId)
+    {
+        if (roomRepository.GetById(roomId) is null)
+        {
+            return null;
+        }
+
+        return bookingRepository.GetAll()
+            .Where(booking => booking.Room.Id == roomId)
+            .Select(booking => new BookingDto(
+                booking.Id,
+                booking.Client.Id,
+                booking.Room.Id,
+                booking.CheckInDate,
+                booking.DaysCount))
+            .ToList();
     }
 
     /// <summary>

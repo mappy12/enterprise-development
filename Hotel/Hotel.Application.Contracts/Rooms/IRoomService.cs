@@ -1,4 +1,6 @@
-﻿namespace Hotel.Application.Contracts.Rooms;
+﻿using Hotel.Application.Contracts.Bookings;
+
+namespace Hotel.Application.Contracts.Rooms;
 
 /// <summary>
 /// Интерфейс для работы с номерами гостиницы
@@ -15,4 +17,9 @@ public interface IRoomService
     /// Получить количество бронирований для каждого номера
     /// </summary>
     public IReadOnlyList<RoomBookingCountDto> GetBookingCountForEachRoom();
+
+    /// <summary>
+    /// Получить бронирования указанного номера
+    /// </summary>
+    public IReadOnlyList<BookingDto>? GetBookingsByRoomId(int roomId);
 }
