@@ -1,6 +1,7 @@
 ﻿using Hotel.Application.Contracts.HotelClients;
 using Hotel.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Api.Host.Controllers;
 
@@ -10,6 +11,32 @@ namespace Hotel.Api.Host.Controllers;
 public class HotelClientsController(IHotelClientService hotelClientService, ILogger<HotelClientsController> logger)
     : CrudControllerBase<HotelClientDto, CreateHotelClientDto, int>(hotelClientService, logger)
 {
+    /// <summary>
+    /// Получить бронирования указанного клиента
+    /// </summary>
+    [HttpGet("{id:int}/bookings")]
+    [EndpointSummary("Получить бронирования указанного клиента")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public ActionResult<IReadOnlyList<BookingDto>> GetBookingsByClientId(int id)
+    {
+        try
+        {
+            var result = hotelClientService.GetBookingsByClientId(id);
+
+            if (result is null) return NotFound();
+
+            return Ok(result);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception, "При получении бронирований клиента {ClientId} произошла ошибка", id);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+        }
+    }
+
     /// <summary>
     /// Вернуть пять клиентов с наибольшей общей стоимостью проживания
     /// </summary>

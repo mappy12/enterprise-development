@@ -2,6 +2,7 @@
 using Hotel.Domain;
 using Hotel.Domain.Entities;
 using Hotel.Domain.Shared.Enums;
+using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Application.Services;
 
@@ -82,6 +83,24 @@ public class HotelClientService(IRepository<HotelClient, int> clientRepository, 
     public bool Delete(int id)
     {
         return clientRepository.Delete(id);
+    }
+
+    /// <summary>
+    /// Получить бронирования указанного клиента
+    /// </summary>
+    public IReadOnlyList<BookingDto>? GetBookingsByClientId(int clientId)
+    {
+        if (clientRepository.GetById(clientId) is null) return null;
+
+        return bookingRepository.GetAll()
+            .Where(booking => booking.Client.Id == clientId)
+            .Select(booking => new BookingDto(
+                booking.Id,
+                booking.Client.Id,
+                booking.Room.Id,
+                booking.CheckInDate,
+                booking.DaysCount))
+            .ToList();
     }
 
     /// <summary>

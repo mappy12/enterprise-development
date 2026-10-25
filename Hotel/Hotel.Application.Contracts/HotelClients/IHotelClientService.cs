@@ -1,4 +1,5 @@
 ﻿using Hotel.Domain.Shared.Enums;
+using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Application.Contracts.HotelClients;
 
@@ -8,6 +9,11 @@ namespace Hotel.Application.Contracts.HotelClients;
 public interface IHotelClientService
     : ICrudService<HotelClientDto, CreateHotelClientDto, int>
 {
+    /// <summary>
+    /// Получить бронирования указанного клиента
+    /// </summary>
+    public IReadOnlyList<BookingDto>? GetBookingsByClientId(int clientId);
+
     /// <summary>
     /// Получить топ пять клиентов по общей стоимости проживания
     /// </summary>
