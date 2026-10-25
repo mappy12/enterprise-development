@@ -9,7 +9,7 @@ namespace Hotel.Api.Host.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDto, TInputDto, TKey> appService, ILogger logger) : ControllerBase
-    where TDto : class
+    where TDto : class, IHasId<TKey>
     where TInputDto : class
     where TKey : struct
 {
@@ -31,7 +31,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
 
             logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(Create), GetType().Name);
 
-            return StatusCode(StatusCodes.Status201Created, result);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
         catch (ArgumentException exception)
         {

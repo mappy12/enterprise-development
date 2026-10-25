@@ -9,4 +9,4 @@ public record BookingDto(
     int RoomId,
     DateOnly CheckInDate,
     int DaysCount
-);
+) : IHasId<int>;

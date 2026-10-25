@@ -11,4 +11,4 @@ public record HotelClientDto(
     string? MiddleName,
     DateOnly BirthDate,
     string Citizenship
-);
+) : IHasId<int>;

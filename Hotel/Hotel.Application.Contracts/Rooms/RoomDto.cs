@@ -9,4 +9,4 @@ public record RoomDto(
     int Floor,
     bool HasBalcony,
     int RoomTypeId
-);
+) : IHasId<int>;

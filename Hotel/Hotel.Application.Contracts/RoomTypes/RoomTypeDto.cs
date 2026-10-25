@@ -12,4 +12,4 @@ public record RoomTypeDto(
     int BedCount,
     bool HasBathroom,
     decimal PricePerDay
-);
+) : IHasId<int>;
