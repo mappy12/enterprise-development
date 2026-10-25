@@ -32,7 +32,7 @@ public class BookingsController(IBookingService bookingService, ILogger<Bookings
         {
             logger.LogError(exception, "При получении текущих бронирований произошла ошибка");
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера" });
         }
     }
 }

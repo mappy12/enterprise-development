@@ -32,7 +32,7 @@ public class RoomController(IRoomService roomService, ILogger<RoomController> lo
         {
             logger.LogError(exception, "При получении бронирований номера {RoomId} произошла ошибка", id);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -58,7 +58,7 @@ public class RoomController(IRoomService roomService, ILogger<RoomController> lo
         {
             logger.LogError(exception, "При получении пяти наиболее бронируемых комнат произошла ошибка");
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -84,7 +84,7 @@ public class RoomController(IRoomService roomService, ILogger<RoomController> lo
         {
             logger.LogError(exception, "При получении количества бронирований комнат произошла ошибка");
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 }

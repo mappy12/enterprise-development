@@ -43,7 +43,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
         {
             logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(Create), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -88,7 +88,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
         {
             logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.", nameof(Update), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -126,7 +126,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
         {
             logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(Delete), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -153,7 +153,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
         {
             logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(GetAll), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 
@@ -191,7 +191,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
         {
             logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(GetById), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Произошла внутренняя ошибка сервера." });
         }
     }
 }
