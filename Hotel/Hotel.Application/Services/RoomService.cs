@@ -7,42 +7,14 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Служба работы с номерами гостиницы
 /// </summary>
-public class RoomService : IRoomService
+public class RoomService(IRepository<Room, int> roomRepository, IRepository<RoomType, int> roomTypeRepository, IRepository<Booking, int> bookingRepository) : IRoomService
 {
-    /// <summary>
-    /// Репозиторий номеров гостиницы
-    /// </summary>
-    private readonly IRepository<Room, int> _roomRepository;
-
-    /// <summary>
-    /// Репозиторий типов номеров
-    /// </summary>
-    private readonly IRepository<RoomType, int> _roomTypeRepository;
-
-    /// <summary>
-    /// Репозиторий бронирований
-    /// </summary>
-    private readonly IRepository<Booking, int> _bookingRepository;
-
-    /// <summary>
-    /// Инициализация службы
-    /// </summary>
-    public RoomService(
-        IRepository<Room, int> roomRepository,
-        IRepository<RoomType, int> roomTypeRepository,
-        IRepository<Booking, int> bookingRepository)
-    {
-        _roomRepository = roomRepository;
-        _roomTypeRepository = roomTypeRepository;
-        _bookingRepository = bookingRepository;
-    }
-
     /// <summary>
     /// Получить все номера
     /// </summary>
     public IReadOnlyList<RoomDto> GetAll()
     {
-        return _roomRepository.GetAll()
+        return roomRepository.GetAll()
             .Select(ToDto)
             .ToList();
     }
@@ -52,7 +24,7 @@ public class RoomService : IRoomService
     /// </summary>
     public RoomDto? GetById(int id)
     {
-        var room = _roomRepository.GetById(id);
+        var room = roomRepository.GetById(id);
 
         return room is null ? null : ToDto(room);
     }
@@ -62,12 +34,12 @@ public class RoomService : IRoomService
     /// </summary>
     public RoomDto Create(CreateRoomDto dto)
     {
-        var roomType = _roomTypeRepository.GetById(dto.RoomTypeId);
+        var roomType = roomTypeRepository.GetById(dto.RoomTypeId);
 
         if (roomType is null) throw new ArgumentException(
             $"Не удалось найти тип номера с идентификатором {dto.RoomTypeId}");
 
-        var rooms = _roomRepository.GetAll();
+        var rooms = roomRepository.GetAll();
 
         var newId = rooms.Count == 0
             ? 1
@@ -82,7 +54,7 @@ public class RoomService : IRoomService
             RoomType = roomType
         };
 
-        return ToDto(_roomRepository.Add(room));
+        return ToDto(roomRepository.Add(room));
     }
 
     /// <summary>
@@ -90,11 +62,11 @@ public class RoomService : IRoomService
     /// </summary>
     public RoomDto? Update(int id, CreateRoomDto dto)
     {
-        var existingRoom = _roomRepository.GetById(id);
+        var existingRoom = roomRepository.GetById(id);
 
         if (existingRoom is null) return null;
 
-        var roomType = _roomTypeRepository.GetById(dto.RoomTypeId);
+        var roomType = roomTypeRepository.GetById(dto.RoomTypeId);
 
         if (roomType is null) throw new ArgumentException(
             $"Не удалось найти тип номера с идентификатором {dto.RoomTypeId}");
@@ -108,7 +80,7 @@ public class RoomService : IRoomService
             RoomType = roomType
         };
 
-        var updatedRoom = _roomRepository.Update(room);
+        var updatedRoom = roomRepository.Update(room);
 
         return updatedRoom is null ? null : ToDto(updatedRoom);
     }
@@ -118,7 +90,7 @@ public class RoomService : IRoomService
     /// </summary>
     public bool Delete(int id)
     {
-        return _roomRepository.Delete(id);
+        return roomRepository.Delete(id);
     }
 
     /// <summary>
@@ -126,9 +98,9 @@ public class RoomService : IRoomService
     /// </summary>
     public IReadOnlyList<RoomBookingCountDto> GetTopFiveMostBookedRooms()
     {
-        var bookings = _bookingRepository.GetAll();
+        var bookings = bookingRepository.GetAll();
 
-        return _roomRepository.GetAll()
+        return roomRepository.GetAll()
             .Select(room => new RoomBookingCountDto(
                 ToDto(room),
                 bookings.Count(booking => booking.Room.Id == room.Id)))
@@ -143,9 +115,9 @@ public class RoomService : IRoomService
     /// </summary>
     public IReadOnlyList<RoomBookingCountDto> GetBookingCountForEachRoom()
     {
-        var bookings = _bookingRepository.GetAll();
+        var bookings = bookingRepository.GetAll();
 
-        return _roomRepository.GetAll()
+        return roomRepository.GetAll()
             .Select(room => new RoomBookingCountDto(
                 ToDto(room),
                 bookings.Count(booking => booking.Room.Id == room.Id)))

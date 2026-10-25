@@ -5,15 +5,7 @@ namespace Hotel.Api.Host.Controllers;
 /// <summary>
 /// Контроллер для управления типами номеров
 /// </summary>
-public class RoomTypesController : CrudControllerBase<RoomTypeDto, CreateRoomTypeDto, int>
+public class RoomTypesController(IRoomTypeService appService, ILogger<RoomTypesController> logger)
+    : CrudControllerBase<RoomTypeDto, CreateRoomTypeDto, int>(appService, logger)
 {
-    /// <summary>
-    /// Инициализирует контроллер типов номеров
-    /// </summary>
-    public RoomTypesController(
-        IRoomTypeService appService,
-        ILogger<RoomTypesController> logger)
-        : base(appService, logger)
-    {
-    }
 }

@@ -7,43 +7,14 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Служба работы с бронированиями гостиницы
 /// </summary>
-public class BookingService : IBookingService
+public class BookingService(IRepository<Booking, int> bookingRepository, IRepository<HotelClient, int> clientRepository, IRepository<Room, int> roomRepository) : IBookingService
 {
-    /// <summary>
-    /// Репозиторий бронирований
-    /// </summary>
-    private readonly IRepository<Booking, int> _bookingRepository;
-
-    /// <summary>
-    /// Репозиторий клиентов
-    /// </summary>
-    private readonly IRepository<HotelClient, int> _clientRepository;
-
-    /// <summary>
-    /// Репозиторий номеров
-    /// </summary>
-    private readonly IRepository<Room, int> _roomRepository;
-
-    /// <summary>
-    /// Инициализация службы
-    /// </summary>
-    public BookingService(
-        IRepository<Booking, int> bookingRepository,
-        IRepository<HotelClient, int> clientRepository,
-        IRepository<Room, int> roomRepository)
-
-    {
-        _bookingRepository = bookingRepository;
-        _clientRepository = clientRepository;
-        _roomRepository = roomRepository;
-    }
-
     /// <summary>
     /// Получить все бронирования
     /// </summary>
     public IReadOnlyList<BookingDto> GetAll()
     {
-        return _bookingRepository.GetAll()
+        return bookingRepository.GetAll()
             .Select(ToDto)
             .ToList();
     }
@@ -53,7 +24,7 @@ public class BookingService : IBookingService
     /// </summary>
     public BookingDto? GetById(int id)
     {
-        var booking = _bookingRepository.GetById(id);
+        var booking = bookingRepository.GetById(id);
         return booking is null ? null : ToDto(booking);
     }
 
@@ -62,17 +33,17 @@ public class BookingService : IBookingService
     /// </summary>
     public BookingDto Create(CreateBookingDto dto)
     {
-        var client = _clientRepository.GetById(dto.ClientId);
+        var client = clientRepository.GetById(dto.ClientId);
 
         if (client is null) throw new ArgumentException(
             $"Не удалось найти клиента с идентификатором {dto.ClientId}");
 
-        var room = _roomRepository.GetById(dto.RoomId);
+        var room = roomRepository.GetById(dto.RoomId);
 
         if (room is null) throw new ArgumentException(
             $"Не удалось найти номер с идентификатором {dto.RoomId}");
 
-        var bookings = _bookingRepository.GetAll();
+        var bookings = bookingRepository.GetAll();
 
         var newId = bookings.Count == 0
             ? 1
@@ -87,7 +58,7 @@ public class BookingService : IBookingService
             DaysCount = dto.DaysCount
         };
 
-        return ToDto(_bookingRepository.Add(booking));
+        return ToDto(bookingRepository.Add(booking));
     }
 
     /// <summary>
@@ -95,16 +66,16 @@ public class BookingService : IBookingService
     /// </summary>
     public BookingDto? Update(int id, CreateBookingDto dto)
     {
-        var existingBooking = _bookingRepository.GetById(id);
+        var existingBooking = bookingRepository.GetById(id);
 
         if (existingBooking is null) return null;
 
-        var client = _clientRepository.GetById(dto.ClientId);
+        var client = clientRepository.GetById(dto.ClientId);
 
         if (client is null) throw new ArgumentException(
             $"Не удалось найти клиента с идентификатором {dto.ClientId}");
 
-        var room = _roomRepository.GetById(dto.RoomId);
+        var room = roomRepository.GetById(dto.RoomId);
 
         if (room is null) throw new ArgumentException(
             $"Не удалось найти номер с идентификатором {dto.RoomId}");
@@ -118,7 +89,7 @@ public class BookingService : IBookingService
             DaysCount = dto.DaysCount
         };
 
-        var updatedBooking = _bookingRepository.Update(booking);
+        var updatedBooking = bookingRepository.Update(booking);
 
         return updatedBooking is null ? null : ToDto(updatedBooking);
     }
@@ -128,7 +99,7 @@ public class BookingService : IBookingService
     /// </summary>
     public bool Delete(int id)
     {
-        return _bookingRepository.Delete(id);
+        return bookingRepository.Delete(id);
     }
 
     /// <summary>
@@ -138,7 +109,7 @@ public class BookingService : IBookingService
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
 
-        return _bookingRepository.GetAll()
+        return bookingRepository.GetAll()
             .Where(booking =>
                 booking.CheckInDate <= today &&
                 booking.CheckInDate.AddDays(booking.DaysCount) > today)

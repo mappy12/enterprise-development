@@ -8,35 +8,14 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Служба работы с клиентами гостиницы
 /// </summary>
-public class HotelClientService : IHotelClientService
+public class HotelClientService(IRepository<HotelClient, int> clientRepository, IRepository<Booking, int> bookingRepository) : IHotelClientService
 {
-    /// <summary>
-    /// Репозиторий клиентов гостиницы
-    /// </summary>
-    private readonly IRepository<HotelClient, int> _clientRepository;
-
-    /// <summary>
-    /// Репозиторий бронирований
-    /// </summary>
-    private readonly IRepository<Booking, int> _bookingRepository;
-
-    /// <summary>
-    /// Инициализация службы
-    /// </summary>
-    public HotelClientService(
-        IRepository<HotelClient, int> clientRepository,
-        IRepository<Booking, int> bookingRepository)
-    {
-        _clientRepository = clientRepository;
-        _bookingRepository = bookingRepository;
-    }
-
     /// <summary>
     /// Получить всех клиентов
     /// </summary>
     public IReadOnlyList<HotelClientDto> GetAll()
     {
-        return _clientRepository.GetAll()
+        return clientRepository.GetAll()
             .Select(ToDto)
             .ToList();
     }
@@ -46,7 +25,7 @@ public class HotelClientService : IHotelClientService
     /// </summary>
     public HotelClientDto? GetById(int id)
     {
-        var client = _clientRepository.GetById(id);
+        var client = clientRepository.GetById(id);
 
         return client is null ? null : ToDto(client);
     }
@@ -56,7 +35,7 @@ public class HotelClientService : IHotelClientService
     /// </summary>
     public HotelClientDto Create(CreateHotelClientDto dto)
     {
-        var clients = _clientRepository.GetAll();
+        var clients = clientRepository.GetAll();
 
         var newId = clients.Count == 0
             ? 1
@@ -73,7 +52,7 @@ public class HotelClientService : IHotelClientService
             Citizenship = dto.Citizenship
         };
 
-        return ToDto(_clientRepository.Add(client));
+        return ToDto(clientRepository.Add(client));
     }
 
     /// <summary>
@@ -92,7 +71,7 @@ public class HotelClientService : IHotelClientService
             Citizenship = dto.Citizenship
         };
 
-        var updatedClient = _clientRepository.Update(client);
+        var updatedClient = clientRepository.Update(client);
 
         return updatedClient is null ? null : ToDto(updatedClient);
     }
@@ -102,7 +81,7 @@ public class HotelClientService : IHotelClientService
     /// </summary>
     public bool Delete(int id)
     {
-        return _clientRepository.Delete(id);
+        return clientRepository.Delete(id);
     }
 
     /// <summary>
@@ -110,7 +89,7 @@ public class HotelClientService : IHotelClientService
     /// </summary>
     public IReadOnlyList<HotelClientStayCostDto> GetTopFiveClientsByTotalStayCost()
     {
-        return _bookingRepository.GetAll()
+        return bookingRepository.GetAll()
             .GroupBy(booking => booking.Client.Id)
             .Select(group => new HotelClientStayCostDto(
                 ToDto(group.First().Client),
@@ -127,9 +106,9 @@ public class HotelClientService : IHotelClientService
     /// </summary>
     public IReadOnlyList<HotelClientDto> GetClientsByRoomCategory(RoomCategory category)
     {
-        var bookings = _bookingRepository.GetAll();
+        var bookings = bookingRepository.GetAll();
 
-        return _clientRepository.GetAll()
+        return clientRepository.GetAll()
             .Where(client => bookings.Any(booking =>
                 booking.Client.Id == client.Id &&
                 booking.Room.RoomType.Category == category))

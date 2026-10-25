@@ -8,32 +8,11 @@ namespace Hotel.Api.Host.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
+public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDto, TInputDto, TKey> appService, ILogger logger) : ControllerBase
     where TDto : class
     where TInputDto : class
     where TKey : struct
 {
-    /// <summary>
-    /// Сервис для выполнения CRUD операций над DTO
-    /// </summary>
-    private readonly ICrudService<TDto, TInputDto, TKey> _appService;
-
-    /// <summary>
-    /// Логгер для записи информации о выполнении запросов и ошибках
-    /// </summary>
-    private readonly ILogger _logger;
-
-    /// <summary>
-    /// Инициализирует базовый CRUD контроллер
-    /// </summary>
-    protected CrudControllerBase(
-        ICrudService<TDto, TInputDto, TKey> appService,
-        ILogger logger)
-    {
-        _appService = appService;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Создать новую запись
     /// </summary>
@@ -44,7 +23,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [ProducesResponseType(500)]
     public ActionResult<TDto> Create([FromBody] TInputDto dto)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Вызван метод {Method} контроллера {Controller}. Данные: {@Dto}",
             nameof(Create),
             GetType().Name,
@@ -52,9 +31,9 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
         try
         {
-            var result = _appService.Create(dto);
+            var result = appService.Create(dto);
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен",
                 nameof(Create),
                 GetType().Name);
@@ -63,7 +42,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (ArgumentException exception)
         {
-            _logger.LogWarning(
+            logger.LogWarning(
                 exception,
                 "При создании записи переданы некорректные данные.");
 
@@ -71,7 +50,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
                 nameof(Create),
@@ -93,7 +72,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [ProducesResponseType(500)]
     public ActionResult<TDto> Update(TKey id, [FromBody] TInputDto dto)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Метод {Method} контроллера {Controller} вызван с идентификатором {Id} и данными {@Dto}.",
             nameof(Update),
             GetType().Name,
@@ -102,11 +81,11 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
         try
         {
-            var result = _appService.Update(id, dto);
+            var result = appService.Update(id, dto);
 
             if (result is null)
             {
-                _logger.LogWarning(
+                logger.LogWarning(
                     "Запись с идентификатором {Id} не найдена для обновления.",
                     id);
 
@@ -116,7 +95,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
                 });
             }
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(Update),
                 GetType().Name);
@@ -125,7 +104,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (ArgumentException exception)
         {
-            _logger.LogWarning(
+            logger.LogWarning(
                 exception,
                 "При обновлении записи с идентификатором {Id} переданы некорректные данные.",
                 id);
@@ -134,7 +113,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
                 nameof(Update),
@@ -156,7 +135,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [ProducesResponseType(500)]
     public IActionResult Delete(TKey id)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Метод {Method} контроллера {Controller} вызван с идентификатором {Id}.",
             nameof(Delete),
             GetType().Name,
@@ -164,11 +143,11 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
         try
         {
-            var result = _appService.Delete(id);
+            var result = appService.Delete(id);
 
             if (!result)
             {
-                _logger.LogWarning(
+                logger.LogWarning(
                     "Запись с идентификатором {Id} не найдена для удаления.",
                     id);
 
@@ -178,7 +157,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
                 });
             }
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(Delete),
                 GetType().Name);
@@ -187,7 +166,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
                 nameof(Delete),
@@ -208,16 +187,16 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<TDto>> GetAll()
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Метод {Method} контроллера {Controller} вызван.",
             nameof(GetAll),
             GetType().Name);
 
         try
         {
-            var result = _appService.GetAll();
+            var result = appService.GetAll();
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(GetAll),
                 GetType().Name);
@@ -226,7 +205,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
                 nameof(GetAll),
@@ -248,7 +227,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
     [ProducesResponseType(500)]
     public ActionResult<TDto> GetById(TKey id)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Метод {Method} контроллера {Controller} вызван с идентификатором {Id}.",
             nameof(GetById),
             GetType().Name,
@@ -256,11 +235,11 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
 
         try
         {
-            var result = _appService.GetById(id);
+            var result = appService.GetById(id);
 
             if (result is null)
             {
-                _logger.LogWarning(
+                logger.LogWarning(
                     "Запись с идентификатором {Id} не найдена",
                     id);
 
@@ -270,7 +249,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
                 });
             }
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен.",
                 nameof(GetById),
                 GetType().Name);
@@ -279,7 +258,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey> : ControllerBase
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
                 nameof(GetById),

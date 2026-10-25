@@ -7,27 +7,14 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Служба работы с типами номеров
 /// </summary>
-public class RoomTypeService : IRoomTypeService
+public class RoomTypeService(IRepository<RoomType, int> repository) : IRoomTypeService
 {
-    /// <summary>
-    /// Репозиторий для работы с типами номеров
-    /// </summary>
-    private readonly IRepository<RoomType, int> _repository;
-
-    /// <summary>
-    /// Инициализация службы
-    /// </summary>
-    public RoomTypeService(IRepository<RoomType, int> repository)
-    {
-        _repository = repository;
-    }
-
     /// <summary>
     /// Получить все типы номеров
     /// </summary>
     public IReadOnlyList<RoomTypeDto> GetAll()
     {
-        return _repository.GetAll()
+        return repository.GetAll()
             .Select(ToDto)
             .ToList();
     }
@@ -37,7 +24,7 @@ public class RoomTypeService : IRoomTypeService
     /// </summary>
     public RoomTypeDto? GetById(int id)
     {
-        var roomType = _repository.GetById(id);
+        var roomType = repository.GetById(id);
 
         return roomType is null ? null : ToDto(roomType);
     }
@@ -47,7 +34,7 @@ public class RoomTypeService : IRoomTypeService
     /// </summary>
     public RoomTypeDto Create(CreateRoomTypeDto dto)
     {
-        var roomTypes = _repository.GetAll();
+        var roomTypes = repository.GetAll();
 
         var newId = roomTypes.Count == 0
             ? 1
@@ -63,7 +50,7 @@ public class RoomTypeService : IRoomTypeService
             PricePerDay = dto.PricePerDay
         };
 
-        return ToDto(_repository.Add(roomType));
+        return ToDto(repository.Add(roomType));
     }
 
     /// <summary>
@@ -81,7 +68,7 @@ public class RoomTypeService : IRoomTypeService
             PricePerDay = dto.PricePerDay
         };
 
-        var updatedRoomType = _repository.Update(roomType);
+        var updatedRoomType = repository.Update(roomType);
 
         return updatedRoomType is null ? null : ToDto(updatedRoomType);
     }
@@ -91,7 +78,7 @@ public class RoomTypeService : IRoomTypeService
     /// </summary>
     public bool Delete(int id)
     {
-        return _repository.Delete(id);
+        return repository.Delete(id);
     }
 
     /// <summary>

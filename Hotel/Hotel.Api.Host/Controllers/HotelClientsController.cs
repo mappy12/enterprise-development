@@ -7,29 +7,9 @@ namespace Hotel.Api.Host.Controllers;
 /// <summary>
 /// Контроллер для управления клиентами и получения статистики по их бронированиям
 /// </summary>
-public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateHotelClientDto, int>
+public class HotelClientsController(IHotelClientService hotelClientService, ILogger<HotelClientsController> logger)
+    : CrudControllerBase<HotelClientDto, CreateHotelClientDto, int>(hotelClientService, logger)
 {
-    /// <summary>
-    /// Сервис для выполнения операций с клиентами
-    /// </summary>
-    private readonly IHotelClientService _hotelClientService;
-
-    /// <summary>
-    /// Логгер для записи информации о запросах и ошибках
-    /// </summary>
-    private readonly ILogger _logger;
-
-    /// <summary>
-    /// Инициализирует контроллер клиентов
-    /// </summary>
-    public HotelClientsController(
-        IHotelClientService appService,
-        ILogger<HotelClientsController> logger) : base(appService, logger)
-    {
-        _hotelClientService = appService;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Вернуть пять клиентов с наибольшей общей стоимостью проживания
     /// </summary>
@@ -38,16 +18,16 @@ public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateH
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<HotelClientStayCostDto>> GetTopFiveClientsByTotalStayCost()
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Вызван метод {Method} контроллера {Controller}",
             nameof(GetTopFiveClientsByTotalStayCost),
             GetType().Name);
 
         try
         {
-            var result = _hotelClientService.GetTopFiveClientsByTotalStayCost();
+            var result = hotelClientService.GetTopFiveClientsByTotalStayCost();
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен",
                 nameof(GetTopFiveClientsByTotalStayCost),
                 GetType().Name);
@@ -57,7 +37,7 @@ public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateH
 
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "При получении пяти клиентов с наибольшей стоимостью проживания произошла ошибка");
 
@@ -78,7 +58,7 @@ public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateH
     public ActionResult<IReadOnlyList<HotelClientDto>> GetClientsByRoomCategory(
         RoomCategory category)
     {
-        _logger.LogInformation(
+        logger.LogInformation(
             "Вызван метод {Method} контроллера {Controller}. Категория комнаты: {Category}",
             nameof(GetClientsByRoomCategory),
             GetType().Name,
@@ -86,9 +66,9 @@ public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateH
 
         try
         {
-            var result = _hotelClientService.GetClientsByRoomCategory(category);
+            var result = hotelClientService.GetClientsByRoomCategory(category);
 
-            _logger.LogInformation(
+            logger.LogInformation(
                 "Метод {Method} контроллера {Controller} успешно выполнен",
                 nameof(GetClientsByRoomCategory),
                 GetType().Name);
@@ -97,7 +77,7 @@ public class HotelClientsController : CrudControllerBase<HotelClientDto, CreateH
         }
         catch (Exception exception)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "При получении клиентов по категории комнат произошла ошибка");
 
