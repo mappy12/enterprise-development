@@ -7,7 +7,7 @@ namespace Hotel.Api.Host.Controllers;
 /// <summary>
 /// Контроллер для управления комнатами и получения статистики по бронированиям
 /// </summary>
-public class RoomsController(IRoomService roomService, ILogger<RoomsController> logger)
+public class RoomController(IRoomService roomService, ILogger<RoomController> logger)
     : CrudControllerBase<RoomDto, CreateRoomDto, int>(roomService, logger)
 {
     /// <summary>
