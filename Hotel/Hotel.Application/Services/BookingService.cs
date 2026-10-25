@@ -126,6 +126,9 @@ public class BookingService(IRepository<Booking, int> bookingRepository, IReposi
             .ToList();
     }
 
+    /// <summary>
+    /// Проверить занятость номера на указанный период
+    /// </summary>
     private bool IsRoomOccupied(
         int roomId,
         DateOnly checkInDate,
