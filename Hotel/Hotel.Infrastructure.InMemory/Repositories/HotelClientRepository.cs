@@ -53,12 +53,18 @@ public class HotelClientRepository : IRepository<HotelClient, int>
     /// </summary>
     public HotelClient? Update(HotelClient client)
     {
-        var index = _clients.FindIndex(item => item.Id == client.Id);
+        var existingClient = GetById(client.Id);
 
-        if (index == -1) return null;
-        _clients[index] = client;
+        if (existingClient is null) return null;
 
-        return client;
+        existingClient.PassportNumber = client.PassportNumber;
+        existingClient.FirstName = client.FirstName;
+        existingClient.LastName = client.LastName;
+        existingClient.MiddleName = client.MiddleName;
+        existingClient.BirthDate = client.BirthDate;
+        existingClient.Citizenship = client.Citizenship;
+
+        return existingClient;
     }
 
     /// <summary>
