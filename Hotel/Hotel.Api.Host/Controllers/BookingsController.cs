@@ -17,32 +17,22 @@ public class BookingsController(IBookingService bookingService, ILogger<Bookings
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<BookingDto>> GetCurrentBookings()
     {
-        logger.LogInformation(
-            "Вызван метод {Method} контроллера {Controller}",
-            nameof(GetCurrentBookings),
-            GetType().Name);
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}", nameof(GetCurrentBookings), GetType().Name);
 
         try
         {
             var result = bookingService.GetBookedRooms();
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен",
-                nameof(GetCurrentBookings),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetCurrentBookings), GetType().Name);
 
             return Ok(result);
         }
 
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "При получении текущих бронирований произошла ошибка");
+            logger.LogError(exception, "При получении текущих бронирований произошла ошибка");
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 }

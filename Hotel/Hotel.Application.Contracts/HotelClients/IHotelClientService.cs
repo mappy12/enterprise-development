@@ -1,5 +1,5 @@
-﻿using Hotel.Domain.Shared.Enums;
-using Hotel.Application.Contracts.Bookings;
+﻿using Hotel.Application.Contracts.Bookings;
+using Hotel.Domain.Shared.Enums;
 
 namespace Hotel.Application.Contracts.HotelClients;
 

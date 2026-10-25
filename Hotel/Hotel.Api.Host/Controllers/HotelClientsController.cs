@@ -1,7 +1,7 @@
-﻿using Hotel.Application.Contracts.HotelClients;
+﻿using Hotel.Application.Contracts.Bookings;
+using Hotel.Application.Contracts.HotelClients;
 using Hotel.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Api.Host.Controllers;
 
@@ -45,32 +45,22 @@ public class HotelClientsController(IHotelClientService hotelClientService, ILog
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<HotelClientStayCostDto>> GetTopFiveClientsByTotalStayCost()
     {
-        logger.LogInformation(
-            "Вызван метод {Method} контроллера {Controller}",
-            nameof(GetTopFiveClientsByTotalStayCost),
-            GetType().Name);
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}", nameof(GetTopFiveClientsByTotalStayCost), GetType().Name);
 
         try
         {
             var result = hotelClientService.GetTopFiveClientsByTotalStayCost();
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен",
-                nameof(GetTopFiveClientsByTotalStayCost),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetTopFiveClientsByTotalStayCost), GetType().Name);
 
             return Ok(result);
         }
 
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "При получении пяти клиентов с наибольшей стоимостью проживания произошла ошибка");
+            logger.LogError(exception, "При получении пяти клиентов с наибольшей стоимостью проживания произошла ошибка");
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
 
     }
@@ -85,32 +75,21 @@ public class HotelClientsController(IHotelClientService hotelClientService, ILog
     public ActionResult<IReadOnlyList<HotelClientDto>> GetClientsByRoomCategory(
         RoomCategory category)
     {
-        logger.LogInformation(
-            "Вызван метод {Method} контроллера {Controller}. Категория комнаты: {Category}",
-            nameof(GetClientsByRoomCategory),
-            GetType().Name,
-            category);
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}. Категория комнаты: {Category}", nameof(GetClientsByRoomCategory), GetType().Name, category);
 
         try
         {
             var result = hotelClientService.GetClientsByRoomCategory(category);
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен",
-                nameof(GetClientsByRoomCategory),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetClientsByRoomCategory), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "При получении клиентов по категории комнат произошла ошибка");
+            logger.LogError(exception, "При получении клиентов по категории комнат произошла ошибка");
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 }

@@ -23,41 +23,27 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     [ProducesResponseType(500)]
     public ActionResult<TDto> Create([FromBody] TInputDto dto)
     {
-        logger.LogInformation(
-            "Вызван метод {Method} контроллера {Controller}. Данные: {@Dto}",
-            nameof(Create),
-            GetType().Name,
-            dto);
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}. Данные: {@Dto}", nameof(Create), GetType().Name, dto);
 
         try
         {
             var result = appService.Create(dto);
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен",
-                nameof(Create),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(Create), GetType().Name);
 
             return StatusCode(StatusCodes.Status201Created, result);
         }
         catch (ArgumentException exception)
         {
-            logger.LogWarning(
-                exception,
-                "При создании записи переданы некорректные данные.");
+            logger.LogWarning(exception, "При создании записи переданы некорректные данные");
 
             return BadRequest(new { message = exception.Message });
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
-                nameof(Create),
-                GetType().Name);
+            logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(Create), GetType().Name);
 
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 
@@ -65,19 +51,14 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Обновить существующую запись
     /// </summary>
     [EndpointSummary("Обновить существующую запись")]
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult<TDto> Update(TKey id, [FromBody] TInputDto dto)
     {
-        logger.LogInformation(
-            "Метод {Method} контроллера {Controller} вызван с идентификатором {Id} и данными {@Dto}.",
-            nameof(Update),
-            GetType().Name,
-            id,
-            dto);
+        logger.LogInformation("Метод {Method} контроллера {Controller} вызван с идентификатором {Id} и данными {@Dto}", nameof(Update), GetType().Name, id, dto);
 
         try
         {
@@ -85,9 +66,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
 
             if (result is null)
             {
-                logger.LogWarning(
-                    "Запись с идентификатором {Id} не найдена для обновления.",
-                    id);
+                logger.LogWarning("Запись с идентификатором {Id} не найдена для обновления", id);
 
                 return NotFound(new
                 {
@@ -95,33 +74,21 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
                 });
             }
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен.",
-                nameof(Update),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(Update), GetType().Name);
 
             return Ok(result);
         }
         catch (ArgumentException exception)
         {
-            logger.LogWarning(
-                exception,
-                "При обновлении записи с идентификатором {Id} переданы некорректные данные.",
-                id);
+            logger.LogWarning(exception, "При обновлении записи с идентификатором {Id} переданы некорректные данные", id);
 
             return BadRequest(new { message = exception.Message });
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
-                nameof(Update),
-                GetType().Name);
+            logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.", nameof(Update), GetType().Name);
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 
@@ -129,17 +96,13 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Удалить запись по идентификатору
     /// </summary>
     [EndpointSummary("Удалить запись по идентификатору")]
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public IActionResult Delete(TKey id)
     {
-        logger.LogInformation(
-            "Метод {Method} контроллера {Controller} вызван с идентификатором {Id}.",
-            nameof(Delete),
-            GetType().Name,
-            id);
+        logger.LogInformation("Метод {Method} контроллера {Controller} вызван с идентификатором {Id}", nameof(Delete), GetType().Name, id);
 
         try
         {
@@ -147,9 +110,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
 
             if (!result)
             {
-                logger.LogWarning(
-                    "Запись с идентификатором {Id} не найдена для удаления.",
-                    id);
+                logger.LogWarning("Запись с идентификатором {Id} не найдена для удаления", id);
 
                 return NotFound(new
                 {
@@ -157,24 +118,15 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
                 });
             }
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен.",
-                nameof(Delete),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(Delete), GetType().Name);
 
             return Ok();
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
-                nameof(Delete),
-                GetType().Name);
+            logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(Delete), GetType().Name);
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 
@@ -187,33 +139,21 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<TDto>> GetAll()
     {
-        logger.LogInformation(
-            "Метод {Method} контроллера {Controller} вызван.",
-            nameof(GetAll),
-            GetType().Name);
+        logger.LogInformation("Метод {Method} контроллера {Controller} вызван", nameof(GetAll), GetType().Name);
 
         try
         {
             var result = appService.GetAll();
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен.",
-                nameof(GetAll),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetAll), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
-                nameof(GetAll),
-                GetType().Name);
+            logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(GetAll), GetType().Name);
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 
@@ -221,17 +161,13 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Вернуть запись по идентификатору
     /// </summary>
     [EndpointSummary("Вернуть запись по идентификатору")]
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult<TDto> GetById(TKey id)
     {
-        logger.LogInformation(
-            "Метод {Method} контроллера {Controller} вызван с идентификатором {Id}.",
-            nameof(GetById),
-            GetType().Name,
-            id);
+        logger.LogInformation("Метод {Method} контроллера {Controller} вызван с идентификатором {Id}", nameof(GetById), GetType().Name, id);
 
         try
         {
@@ -239,9 +175,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
 
             if (result is null)
             {
-                logger.LogWarning(
-                    "Запись с идентификатором {Id} не найдена",
-                    id);
+                logger.LogWarning("Запись с идентификатором {Id} не найдена", id);
 
                 return NotFound(new
                 {
@@ -249,24 +183,15 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
                 });
             }
 
-            logger.LogInformation(
-                "Метод {Method} контроллера {Controller} успешно выполнен.",
-                nameof(GetById),
-                GetType().Name);
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetById), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception exception)
         {
-            logger.LogError(
-                exception,
-                "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка.",
-                nameof(GetById),
-                GetType().Name);
+            logger.LogError(exception, "Во время выполнения метода {Method} контроллера {Controller} произошла ошибка", nameof(GetById), GetType().Name);
 
-            return StatusCode(
-                StatusCodes.Status500InternalServerError,
-                $"{exception.Message}\n{exception.InnerException?.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"{exception.Message}\n{exception.InnerException?.Message}");
         }
     }
 }

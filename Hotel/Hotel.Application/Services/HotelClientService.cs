@@ -1,8 +1,8 @@
-﻿using Hotel.Application.Contracts.HotelClients;
+﻿using Hotel.Application.Contracts.Bookings;
+using Hotel.Application.Contracts.HotelClients;
 using Hotel.Domain;
 using Hotel.Domain.Entities;
 using Hotel.Domain.Shared.Enums;
-using Hotel.Application.Contracts.Bookings;
 
 namespace Hotel.Application.Services;
 
