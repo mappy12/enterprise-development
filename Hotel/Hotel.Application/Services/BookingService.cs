@@ -43,6 +43,9 @@ public class BookingService(IRepository<Booking, int> bookingRepository, IReposi
         if (room is null) throw new ArgumentException(
             $"Не удалось найти номер с идентификатором {dto.RoomId}");
 
+        if (IsRoomOccupied(dto.RoomId, dto.CheckInDate, dto.DaysCount))
+            throw new ArgumentException($"Номер с идентификатором {dto.RoomId} уже забронирован на указанный период");
+
         var bookings = bookingRepository.GetAll();
 
         var newId = bookings.Count == 0
@@ -80,6 +83,12 @@ public class BookingService(IRepository<Booking, int> bookingRepository, IReposi
         if (room is null) throw new ArgumentException(
             $"Не удалось найти номер с идентификатором {dto.RoomId}");
 
+        if (IsRoomOccupied(dto.RoomId, dto.CheckInDate, dto.DaysCount, id))
+        {
+            throw new ArgumentException(
+                $"Номер с идентификатором {dto.RoomId} уже забронирован на указанный период");
+        }
+
         var booking = new Booking
         {
             Id = id,
@@ -115,6 +124,21 @@ public class BookingService(IRepository<Booking, int> bookingRepository, IReposi
                 booking.CheckInDate.AddDays(booking.DaysCount) > today)
             .Select(ToDto)
             .ToList();
+    }
+
+    private bool IsRoomOccupied(
+        int roomId,
+        DateOnly checkInDate,
+        int daysCount,
+        int? excludedBookingId = null)
+    {
+        var checkOutDate = checkInDate.AddDays(daysCount);
+
+        return bookingRepository.GetAll().Any(booking =>
+            booking.Room.Id == roomId &&
+            booking.Id != excludedBookingId &&
+            checkInDate < booking.CheckInDate.AddDays(booking.DaysCount) &&
+            booking.CheckInDate < checkOutDate);
     }
 
     /// <summary>

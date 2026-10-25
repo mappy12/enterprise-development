@@ -53,12 +53,17 @@ public class RoomTypeRepository : IRepository<RoomType, int>
     /// </summary>
     public RoomType? Update(RoomType roomType)
     {
-        var index = _roomTypes.FindIndex(item => item.Id == roomType.Id);
+        var existingRoomType = GetById(roomType.Id);
 
-        if (index == -1) return null;
-        _roomTypes[index] = roomType;
+        if (existingRoomType is null) return null;
 
-        return roomType;
+        existingRoomType.Category = roomType.Category;
+        existingRoomType.Area = roomType.Area;
+        existingRoomType.BedCount = roomType.BedCount;
+        existingRoomType.HasBathroom = roomType.HasBathroom;
+        existingRoomType.PricePerDay = roomType.PricePerDay;
+
+        return existingRoomType;
     }
 
     /// <summary>

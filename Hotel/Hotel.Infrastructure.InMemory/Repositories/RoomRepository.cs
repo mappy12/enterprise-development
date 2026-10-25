@@ -54,12 +54,16 @@ public class RoomRepository : IRepository<Room, int>
     /// </summary>
     public Room? Update(Room room)
     {
-        var index = _rooms.FindIndex(item => item.Id == room.Id);
+        var existingRoom = GetById(room.Id);
 
-        if (index == -1) return null;
-        _rooms[index] = room;
+        if (existingRoom is null) return null;
 
-        return room;
+        existingRoom.RoomNumber = room.RoomNumber;
+        existingRoom.Floor = room.Floor;
+        existingRoom.HasBalcony = room.HasBalcony;
+        existingRoom.RoomType = room.RoomType;
+
+        return existingRoom;
     }
 
     /// <summary>
