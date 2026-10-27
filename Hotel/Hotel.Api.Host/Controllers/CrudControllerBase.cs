@@ -51,7 +51,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Обновить существующую запись
     /// </summary>
     [EndpointSummary("Обновить существующую запись")]
-    [HttpPut("{id:int}")]
+    [HttpPut("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
@@ -96,7 +96,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Удалить запись по идентификатору
     /// </summary>
     [EndpointSummary("Удалить запись по идентификатору")]
-    [HttpDelete("{id:int}")]
+    [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
@@ -161,7 +161,7 @@ public abstract class CrudControllerBase<TDto, TInputDto, TKey>(ICrudService<TDt
     /// Получить запись по идентификатору
     /// </summary>
     [EndpointSummary("Получить запись по идентификатору")]
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]

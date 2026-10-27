@@ -6,7 +6,7 @@ namespace Hotel.Infrastructure.InMemory.Repositories;
 
 
 /// <summary>
-/// Репозиторий номеров гостницы в памяти
+/// Репозиторий номеров гостиницы в памяти
 /// </summary>
 public class RoomRepository : IRepository<Room, int>
 {
