@@ -21,11 +21,19 @@ public class HotelClientsController(IHotelClientService hotelClientService, ILog
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<BookingDto>> GetBookingsByClientId(int id)
     {
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}", nameof(GetBookingsByClientId), GetType().Name);
+
         try
         {
             var result = hotelClientService.GetBookingsByClientId(id);
 
-            if (result is null) return NotFound();
+            if (result is null)
+            {
+                logger.LogWarning("Клиент с идентификатором {ClientId} не найден", id);
+                return NotFound();
+            }
+
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetBookingsByClientId), GetType().Name);
 
             return Ok(result);
         }

@@ -20,11 +20,19 @@ public class RoomsController(IRoomService roomService, ILogger<RoomsController> 
     [ProducesResponseType(500)]
     public ActionResult<IReadOnlyList<BookingDto>> GetBookingsByRoomId(int id)
     {
+        logger.LogInformation("Вызван метод {Method} контроллера {Controller}", nameof(GetBookingsByRoomId), GetType().Name);
+
         try
         {
             var result = roomService.GetBookingsByRoomId(id);
 
-            if (result is null) return NotFound();
+            if (result is null)
+            {
+                logger.LogWarning("Номер с идентификатором {RoomId} не найден", id);
+                return NotFound();
+            }
+
+            logger.LogInformation("Метод {Method} контроллера {Controller} успешно выполнен", nameof(GetBookingsByRoomId), GetType().Name);
 
             return Ok(result);
         }
